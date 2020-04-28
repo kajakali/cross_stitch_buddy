@@ -1,4 +1,4 @@
-const projectsReducer = (state = {}, action) => {
+const projectsReducer = (state = [], action) => {
   if(action.type === 'SET_PROJECTS'){
     return action.payload.data;
   }

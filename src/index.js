@@ -9,6 +9,24 @@ import rootReducer from './redux/reducers'; // imports ./redux/reducers/index.js
 import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 
 import App from './components/App/App';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import pink from '@material-ui/core/colors/pink';
+import red from '@material-ui/core/colors/red';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {main: purple[200]},
+    secondary: {main: pink[200]},
+    error: red,
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
+  },
+  typography: {
+    fontSize: 16
+  }
+});
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,8 +50,10 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
+  <ThemeProvider theme={theme}>
   <Provider store={store}>
     <App />
-  </Provider>,
+  </Provider>
+  </ThemeProvider>,
   document.getElementById('react-root'),
 );

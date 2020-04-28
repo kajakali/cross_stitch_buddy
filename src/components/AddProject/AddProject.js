@@ -9,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 const styles = theme => ({
@@ -20,9 +21,21 @@ const styles = theme => ({
     table: {
       minWidth: 700,
     },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+      },
   });
 
 class AddProject extends Component {
+
+    state = {
+        projectName: ''
+    }
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+      };
 
     componentDidMount() {
         //this.props.dispatch( {type: 'FETCH_STRINGS', payload: {project_id: this.props.match.params.id}} );
@@ -35,6 +48,10 @@ class AddProject extends Component {
     backToListButton = () => {
         this.props.history.push('/projectslist');
     }
+    submitProjectName = () => {
+        console.log('the name to submit is: ', this.state.projectName);
+        // TODO send to saga
+    }
 
     render() {
         const {classes} = this.props;
@@ -44,7 +61,15 @@ class AddProject extends Component {
 
                 <p> this page will let you make a new project
                 </p>
-
+                <TextField
+          id="projectName"
+          label="Project Name"
+          className={classes.textField}
+          value={this.state.projectName}
+          onChange={this.handleChange('projectName')}
+          margin="normal"
+        />
+        <Button variant="contained" color="secondary" onClick={this.submitProjectName}>Name my Project</Button>
                 {JSON.stringify(this.props)}
 
 

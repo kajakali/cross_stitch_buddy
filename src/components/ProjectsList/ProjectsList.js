@@ -77,7 +77,7 @@ class ProjectsList extends Component {
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><Button variant="contained" onClick={this.addProjectButton}>Add New Project</Button></TableCell>
+                    <TableCell><Button color="secondary" variant="contained" onClick={this.addProjectButton}>Add New Project</Button></TableCell>
                 </TableRow>
               </TableBody>
       </Table>

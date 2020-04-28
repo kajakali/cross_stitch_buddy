@@ -22,14 +22,14 @@ const styles = theme => ({
     },
   });
 
-class ProjectsList extends Component {
+class AddProject extends Component {
 
     componentDidMount() {
-        this.props.dispatch( {type: 'FETCH_STRINGS', payload: {project_id: this.props.match.params.id}} );
+        //this.props.dispatch( {type: 'FETCH_STRINGS', payload: {project_id: this.props.match.params.id}} );
     }
 
-    editStringButton = () => {
-        console.log('edit this string!');
+    addStringButton = () => {
+        console.log('add this string!');
     }
 
     backToListButton = () => {
@@ -40,16 +40,16 @@ class ProjectsList extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <h1>Individual Project Page</h1>
-                {JSON.stringify(this.props.match.params.id)}
-                <p> this page will display the strings for one project
+                <h1>Add Project Page!!!</h1>
+
+                <p> this page will let you make a new project
                 </p>
 
-                {JSON.stringify(this.props.stringsNeeded)}
+                {JSON.stringify(this.props)}
 
 
     
-      <Table className={classes.table}>
+{/*       <Table className={classes.table}>
         <TableHead>
           <TableRow>
             <TableCell>Color</TableCell>
@@ -61,14 +61,14 @@ class ProjectsList extends Component {
         <TableBody>
 
                 
-                {this.props.reduxStore.stringsNeeded.length > 0 && this.props.reduxStore.stringsNeeded.map(item => (
+                {this.props.stringsNeeded.length > 0 && this.props.stringsNeeded.map(item => (
                   <TableRow key={item.id}>
                     <TableCell component="th" scope="row">
                       {item.number}
                     </TableCell>
                     <TableCell align="right"></TableCell>
                     <TableCell align="right"></TableCell>
-                    <TableCell align="right"><Button variant="contained" onClick={this.editStringButton}>Edit String</Button></TableCell>
+                    <TableCell align="right"><Button variant="contained" onClick={this.addStringButton}>Add New Project</Button></TableCell>
       
                   </TableRow>
                 ))}
@@ -77,26 +77,23 @@ class ProjectsList extends Component {
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><Button variant="contained" onClick={this.completeProjectButton}>Mark Project Complete</Button></TableCell>
+                    <TableCell><Button variant="contained">Mark Project Complete</Button></TableCell>
                 </TableRow>
               </TableBody>
-      </Table>
+      </Table> */}
 <Button variant="contained" onClick={this.backToListButton}>Back to Projects List</Button>
             </div>
         );
     }
 }
 
-ProjectsList.propTypes = {
+AddProject.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({stringsNeeded}) => ({ stringsNeeded });
 const mapStateToProps = (reduxStore) => ({
   reduxStore
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps)(ProjectsList)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps)(AddProject)));

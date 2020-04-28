@@ -1,4 +1,4 @@
-const stringsReducer = (state = [], action) => {
+const stringsNeededReducer = (state = [], action) => {
   if(action.type === 'SET_STRINGS'){
     return action.payload.data;
   }
@@ -7,4 +7,4 @@ const stringsReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default stringsReducer;
+export default stringsNeededReducer;

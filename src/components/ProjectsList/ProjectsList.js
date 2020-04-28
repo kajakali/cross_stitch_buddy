@@ -29,6 +29,7 @@ class ProjectsList extends Component {
 
     addProjectButton = () => {
         console.log('add a new project!');
+        this.props.history.push(`/addproject`)
     }
 
 
@@ -78,12 +79,8 @@ class ProjectsList extends Component {
                     <TableCell></TableCell>
                     <TableCell><Button variant="contained" onClick={this.addProjectButton}>Add New Project</Button></TableCell>
                 </TableRow>
-                goToProjectButton = () => {
-        //TODO replace 1 with something that picks the project
-    }
               </TableBody>
       </Table>
-      <Button variant="contained" onClick={this.goToProjectButton}>View</Button>
             </div>
         );
     }

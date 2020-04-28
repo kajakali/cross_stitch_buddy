@@ -18,8 +18,10 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import ProjectsList from '../ProjectsList/ProjectsList';
 import IndividualProject from '../IndividualProject/IndividualProject';
+import AddProject from '../AddProject/AddProject';
 
 import './App.css';
+
 
 class App extends Component {
   componentDidMount () {
@@ -61,6 +63,11 @@ class App extends Component {
               exact
               path="/projectslist"
               component={ProjectsList}
+            />
+                        <ProtectedRoute
+              exact
+              path="/addproject"
+              component={AddProject}
             />
 
             <ProtectedRoute

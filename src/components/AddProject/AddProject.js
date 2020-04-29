@@ -38,7 +38,10 @@ class AddProject extends Component {
       };
 
     componentDidMount() {
-        //this.props.dispatch( {type: 'FETCH_STRINGS', payload: {project_id: this.props.match.params.id}} );
+      this.props.dispatch( {type: 'FETCH_PROJECT_BEING_ADDED'} );
+
+
+
     }
 
     addStringButton = () => {
@@ -50,6 +53,7 @@ class AddProject extends Component {
     }
     submitProjectName = () => {
         console.log('the name to submit is: ', this.state.projectName);
+        this.props.dispatch( {type: 'ADD_PROJECT_NAME', payload: {projectName: this.state.projectName}});
         // TODO send to saga
     }
 
@@ -58,7 +62,8 @@ class AddProject extends Component {
         return (
             <div>
                 <h1>Add Project Page!!!</h1>
-
+                {JSON.stringify(this.props.reduxStore)}
+                {JSON.stringify(this.state)}
                 <p> this page will let you make a new project
                 </p>
                 <TextField
@@ -71,6 +76,7 @@ class AddProject extends Component {
         />
         <Button variant="contained" color="secondary" onClick={this.submitProjectName}>Name my Project</Button>
                 {JSON.stringify(this.props)}
+
 
 
     

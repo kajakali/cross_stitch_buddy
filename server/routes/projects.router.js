@@ -17,6 +17,20 @@ router.get('/', (req, res) => {
  
     
 });
+router.get('/add', (req, res) => {
+    console.log(req.user);
+    let sqlText = `SELECT * FROM "project" 
+    JOIN "project_details" ON "project_details"."id" = "project"."id"
+    WHERE "user_id" = $1 AND "being_created" = TRUE;`;
+    pool.query(sqlText, [req.user.id]).then( response => {
+        res.send(response.rows);
+    }).catch( error => {
+        console.log('error in getting projects', error);
+        res.sendStatus(500);
+    });
+ 
+    
+});
 
 /**
  * POST route template

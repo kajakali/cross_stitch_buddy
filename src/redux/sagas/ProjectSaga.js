@@ -23,14 +23,29 @@ function* addProject(action) {
 
     yield put({ type: 'FETCH_PROJECTS' });
 
-  } catch (error) {
+  } 
+  catch (error) {
     console.log('Error with adding a project:', error);
+  }
+}
+
+function* fetchProjectBeingAdded() {
+  try {
+    const response = yield axios.get('api/projects/add');
+    yield console.log(response);
+    yield put({type: 'SET_PROJECT_BEING_ADDED', payload: response});
+
+    
+  }
+  catch (error) {
+    console.log('Error in fetching project being added', error);
   }
 }
 
 function* ProjectSaga() {
   yield takeLatest('FETCH_PROJECTS', fetchProjects);
   yield takeLatest('ADD_PROJECT', addProject);
+  yield takeLatest('FETCH_PROJECT_BEING_ADDED', fetchProjectBeingAdded);
 }
 
 export default ProjectSaga;

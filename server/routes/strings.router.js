@@ -32,11 +32,24 @@ router.get('/possible', (req, res) => {
  
 });
 
+ 
+
+
+
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
-
+router.post('/needed', (req, res) => {
+    console.log(req.body.data);
+    console.log("in needed strings router post");
+    let sqlText = `INSERT INTO "thread_needed" ( "project_id", "color_id", "amount_needed", "color_completed") VALUES 
+    ( $1, $2, $3, FALSE) RETURNING project_id;`;
+    pool.query(sqlText, [req.body.data.project_id, req.body.data.color_id, req.body.data.amount]).then( response => {
+        res.send([response.rows[0].project_id]);
+    }).catch( error => {
+        console.log('error in adding a needed string', error);
+        res.sendStatus(500);
+    });
 });
 
 module.exports = router;

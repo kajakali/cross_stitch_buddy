@@ -25,7 +25,7 @@ const styles = theme => ({
 class ProjectsList extends Component {
 
     componentDidMount() {
-        this.props.dispatch( {type: 'FETCH_STRINGS', payload: {project_id: this.props.match.params.id}} );
+        this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.match.params.id}} );
     }
 
     editStringButton = () => {

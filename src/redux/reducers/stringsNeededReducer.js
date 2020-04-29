@@ -1,5 +1,5 @@
 const stringsNeededReducer = (state = [], action) => {
-  if(action.type === 'SET_STRINGS'){
+  if(action.type === 'SET_NEEDED_STRINGS'){
     return action.payload.data;
   }
   return state

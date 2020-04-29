@@ -33,7 +33,8 @@ class AddProject extends Component {
 
     state = {
         projectName: '',
-        color: ''
+        color: '',
+        amount: ''
     }
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
@@ -67,7 +68,12 @@ class AddProject extends Component {
       //make a delete route that removes the project details associated with this
     }
     addColor = () => {
-      console.log('add this color!');
+      console.log('add this color!', this.state.color.id, this.state.amount);
+      this.props.dispatch( {type: 'ADD_NEEDED_STRING', payload: {
+        color_id: this.state.color.id, 
+        amount: this.state.amount,
+        project_id: this.props.reduxStore.projectBeingAdded.id
+      }} );
     }
 
     render() {
@@ -76,6 +82,7 @@ class AddProject extends Component {
             <div>
                 <h1>Add Project Page!!!</h1>
                 {JSON.stringify(this.state)}
+                {JSON.stringify(this.props.reduxStore.stringsNeeded)}
                 <p> this page will let you make a new project
                 </p>
 { !this.props.reduxStore.projectBeingAdded.project_name && 
@@ -156,14 +163,18 @@ class AddProject extends Component {
                       value={this.state.color}
                       getOptionLabel={(option) => option.number}
                       style={{ width: 300 }}
-                      onChange={(event, value) =>       this.setState({
+                      onChange={(event, value) => this.setState({
                         color: value
                       })}
-                      renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
+                      renderInput={(params) => <TextField {...params} label="Color" variant="outlined" />}
                     />
                   </TableCell>
                   <TableCell>
-                    amount needed
+                    <TextField 
+                    label="amount needed" 
+                    value={this.state.amount} 
+                    onChange={(event, value) => this.setState({
+                      amount: event.target.value})}/>
                   </TableCell>
                   <TableCell>
                     add color button

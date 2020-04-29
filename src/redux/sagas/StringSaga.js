@@ -2,13 +2,13 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 
-function* fetchStrings(action) {
+function* fetchNeededStrings(action) {
   try {
     console.log(action.payload);
     const response = yield axios.get(`/api/strings`, {params: action.payload});
     console.log(response);
     
-    yield put({type: 'SET_STRINGS', payload: response});
+    yield put({type: 'SET_NEEDED_STRINGS', payload: response});
   } 
   catch (error) {
     console.log('Error with getting strings:', error);
@@ -17,21 +17,21 @@ function* fetchStrings(action) {
 }
 
 
-function* addString(action) {
+function* addNeededString(action) {
   try {
    
-    yield axios.post('/api/strings', action.payload);
-
-    yield put({ type: 'FETCH_STRINGS' });
+    const response = yield axios.post('/api/strings/needed', {data: action.payload});
+    yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: response.data[0]}});
+ 
 
   } catch (error) {
-    console.log('Error with adding a string:', error);
+    console.log('Error with adding a needed string:', error);
   }
 }
 
 function* StringSaga() {
-  yield takeLatest('FETCH_STRINGS', fetchStrings);
-  yield takeLatest('ADD_STRING', addString);
+  yield takeLatest('ADD_NEEDED_STRING', addNeededString);
+  yield takeLatest('FETCH_NEEDED_STRINGS', fetchNeededStrings);
 }
 
 export default StringSaga;

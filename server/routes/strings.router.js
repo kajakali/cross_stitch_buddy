@@ -51,4 +51,16 @@ router.post('/needed', (req, res) => {
     });
 });
 
+router.delete('/needed/:id', (req, res) => {
+    console.log(req.params.id);
+    console.log("in needed strings router post");
+    let sqlText = `DELETE FROM "thread_needed" WHERE "id" = $1 RETURNING "project_id";`;
+    pool.query(sqlText, [req.params.id]).then( response => {
+        res.send([response.rows[0].project_id]);
+    }).catch( error => {
+        console.log('error in deleting a needed string', error);
+        res.sendStatus(500);
+    });
+});
+
 module.exports = router;

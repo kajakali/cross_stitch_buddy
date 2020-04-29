@@ -164,7 +164,8 @@ class AddProject extends Component {
                   </TableCell>
                   <TableCell>                      
                     <Button
-                      onClick={() => console.log('delete!', item.id)}
+                      onClick={() => this.props.dispatch( {type: 'DELETE_NEEDED_STRING', 
+                        payload: {thread_needed_id: item.id}} )}
                       >Delete
                     </Button>
                   </TableCell>

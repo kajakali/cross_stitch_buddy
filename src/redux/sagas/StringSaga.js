@@ -29,9 +29,22 @@ function* addNeededString(action) {
   }
 }
 
+function* deleteNeededString(action) {
+  try {
+    yield console.log(action.payload.thread_needed_id);
+    const response = yield axios.delete(`/api/strings/needed/${action.payload.thread_needed_id}`);
+    yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: response.data[0]}});
+ 
+
+  } catch (error) {
+    console.log('Error with deleting a needed string:', error);
+  }
+}
+
 function* StringSaga() {
   yield takeLatest('ADD_NEEDED_STRING', addNeededString);
   yield takeLatest('FETCH_NEEDED_STRINGS', fetchNeededStrings);
+  yield takeLatest('DELETE_NEEDED_STRING', deleteNeededString);
 }
 
 export default StringSaga;

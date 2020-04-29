@@ -20,6 +20,17 @@ router.get('/', (req, res) => {
     });
  
 });
+router.get('/possible', (req, res) => {
+    console.log("in possible strings router get");
+    let sqlText = `SELECT * FROM "possible_thread";`;
+    pool.query(sqlText).then( response => {
+        res.send(response.rows);
+    }).catch( error => {
+        console.log('error in getting projects', error);
+        res.sendStatus(500);
+    });
+ 
+});
 
 /**
  * POST route template

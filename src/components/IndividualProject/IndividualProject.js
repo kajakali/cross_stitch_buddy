@@ -18,7 +18,7 @@ const styles = theme => ({
       overflowX: 'auto',
     },
     table: {
-      minWidth: 700,
+      minWidth: 400,
     },
   });
 
@@ -52,11 +52,11 @@ class ProjectsList extends Component {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
+            <TableCell>Color Number</TableCell>
+            <TableCell>Amount Required</TableCell>
+            <TableCell>Color Name</TableCell>
             <TableCell>Color</TableCell>
-            <TableCell align="right">Amount Required</TableCell>
-            <TableCell align="right">Color Name</TableCell>
-            <TableCell align="right">Color</TableCell>
-            <TableCell align="right">Button</TableCell>
+            <TableCell>Button</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -67,11 +67,22 @@ class ProjectsList extends Component {
                     <TableCell component="th" scope="row">
                       {item.number}
                     </TableCell>
-                <TableCell align="right">{item.amount_needed}</TableCell>
-                <TableCell align="right">{item.color_name}</TableCell>
-                <TableCell align="right"><div style={{backgroundColor: `#${item.color_value}`, height:'50px', width: '50px' }}></div>{item.color_value}</TableCell>
-                    <TableCell align="right"><Button variant="contained" onClick={this.editStringButton}>Edit String</Button></TableCell>
-      
+                    <TableCell>
+                      {item.amount_needed}
+                    </TableCell>
+                    <TableCell>
+                      {item.color_name}
+                    </TableCell>
+                    <TableCell>
+                      <div style={{backgroundColor: `#${item.color_value}`, height:'50px', width: '50px' }}></div>
+                      {item.color_value}
+                    </TableCell>
+                    <TableCell>
+                      <Button 
+                        variant="contained" 
+                        onClick={this.editStringButton}>Edit String
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
  

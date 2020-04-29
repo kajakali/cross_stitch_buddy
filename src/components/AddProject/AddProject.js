@@ -20,7 +20,7 @@ const styles = theme => ({
       overflowX: 'auto',
     },
     table: {
-      minWidth: 700,
+      minWidth: 400,
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -136,27 +136,41 @@ class AddProject extends Component {
           </>}
 
             </TableRow>
+            <TableRow>
+            <TableCell>Color Number</TableCell>
+            <TableCell>Amount Required</TableCell>
+            <TableCell>Color Name</TableCell>
+            <TableCell>Color</TableCell>
+            <TableCell>Button</TableCell>
+            </TableRow>
           </TableHead>
         <TableBody>
 
                 
-                {this.props.reduxStore.stringsNeeded && this.props.reduxStore.stringsNeeded.map(item => (
-                  <TableRow key={item.id}>
-                    <TableCell component="th" scope="row">
-                      {item.number}
-                    </TableCell>
-                    <TableCell align="right"></TableCell>
-                    <TableCell align="right"></TableCell>
-                    <TableCell align="right">
-                      <Button
-                        value={item.id}
-                        onClick={() => console.log('delete!')}
-                        >Delete
-                      </Button>
-                    </TableCell>
-      
-                  </TableRow>
-                ))}
+              {this.props.reduxStore.stringsNeeded && this.props.reduxStore.stringsNeeded.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell component="th" scope="row">
+                    {item.number}
+                  </TableCell>
+                  <TableCell>
+                    {item.amount_needed}
+                  </TableCell>
+                  <TableCell>
+                    {item.color_name}
+                  </TableCell>
+                  <TableCell>
+                    <div style={{backgroundColor: `#${item.color_value}`, height:'50px', width: '50px' }}></div>
+                    {item.color_value}
+                  </TableCell>
+                  <TableCell>                      
+                    <Button
+                      onClick={() => console.log('delete!', item.id)}
+                      >Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+
                 <TableRow>
                   <TableCell>
                     <Autocomplete
@@ -200,7 +214,7 @@ class AddProject extends Component {
 
 
 
-{JSON.stringify(this.props.reduxStore.projectBeingAdded.project_name)}
+{JSON.stringify(this.props.reduxStore)}
 
 
 

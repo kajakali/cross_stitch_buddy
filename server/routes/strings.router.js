@@ -7,9 +7,8 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     console.log("in strings router get", req.query.project_id, req.user.id);
-    let sqlText = `SELECT * FROM "thread_needed" JOIN "project" ON "project"."id" = "thread_needed"."project_id"
-    JOIN "project_details" ON "project_details"."id" = "project"."id"
-    JOIN "possible_thread" ON "possible_thread"."id" = "thread_needed"."color_id" 
+    let sqlText = `SELECT "thread_needed"."id", "project_id", "color_id", "amount_needed", "color_completed", "being_created", "number", "color_name", "color_value"  FROM "thread_needed" JOIN "project" ON "project"."id" = "thread_needed"."project_id"
+    JOIN "possible_thread" ON "possible_thread"."id" = "thread_needed"."color_id"  
     WHERE "project_id" = $1 AND "user_id" = $2
     ;`;
     pool.query(sqlText, [ req.query.project_id, req.user.id]).then( response => {

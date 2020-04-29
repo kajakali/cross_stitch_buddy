@@ -43,6 +43,7 @@ class AddProject extends Component {
     componentDidMount() {
       this.props.dispatch( {type: 'FETCH_PROJECT_BEING_ADDED'} );
       this.props.dispatch( {type: 'FETCH_POSSIBLE_STRINGS'} );
+      this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.reduxStore.projectBeingAdded.id}});
     }
   
 
@@ -82,14 +83,9 @@ class AddProject extends Component {
             <div>
                 <h1>Add Project Page!!!</h1>
                 {JSON.stringify(this.state)}
-                {JSON.stringify(this.props.reduxStore.stringsNeeded)}
                 <p> this page will let you make a new project
                 </p>
-{ !this.props.reduxStore.projectBeingAdded.project_name && 
-          <>
 
-
-          </> }
         <div>
         <Table className={classes.table}>
           <TableHead>
@@ -144,17 +140,23 @@ class AddProject extends Component {
         <TableBody>
 
                 
-{/*                 {this.props.projectBeingAdded && this.props.projectBeingAdded.map(item => (
+                {this.props.reduxStore.stringsNeeded && this.props.reduxStore.stringsNeeded.map(item => (
                   <TableRow key={item.id}>
                     <TableCell component="th" scope="row">
                       {item.number}
                     </TableCell>
                     <TableCell align="right"></TableCell>
                     <TableCell align="right"></TableCell>
-                    <TableCell align="right"><Button variant="contained" onClick={this.addStringButton}>Add New Project</Button></TableCell>
+                    <TableCell align="right">
+                      <Button
+                        value={item.id}
+                        onClick={() => console.log('delete!')}
+                        >Delete
+                      </Button>
+                    </TableCell>
       
                   </TableRow>
-                ))} */}
+                ))}
                 <TableRow>
                   <TableCell>
                     <Autocomplete
@@ -190,7 +192,7 @@ class AddProject extends Component {
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><Button variant="contained">Mark Project Complete</Button></TableCell>
+                    <TableCell><Button variant="contained">Save This Project!!!(so you can make a new one)</Button></TableCell>
                 </TableRow>
               </TableBody>
       </Table>

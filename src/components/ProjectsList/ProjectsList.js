@@ -39,7 +39,6 @@ class ProjectsList extends Component {
         return (
             <div>
                 <h1>Projects List</h1>
-                {JSON.stringify(this.props)}
                 <p> needs table and buttons from material ui.
                     once it's not the home page it needs a button to go home
                 </p>

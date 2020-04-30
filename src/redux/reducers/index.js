@@ -4,7 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import projects from './projectsReducer';
 import stringsNeeded from './stringsNeededReducer';
-import thisProject from './thisProject';
+import thisProject from './thisProjectReducer';
 import possibleStrings from './possibleStringsReducer';
 
 // rootReducer is the primary reducer for our entire project

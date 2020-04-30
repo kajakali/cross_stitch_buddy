@@ -34,10 +34,23 @@ function* addProject(action) {
 //put them in the reducer, too
 function* fetchProjectBeingAdded() {
   try {
-    const response = yield axios.get('api/projects/add');
-    yield console.log('response to projects being added', response);
-    yield put({type: 'SET_PROJECT_BEING_ADDED', payload: response});
-    yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: response.data[0].id}});
+    const response = yield axios.get('api/projects/add'); //get project details for this user and project is being created
+    yield console.log('response to projects being added', response.data);
+    if(response.data.length === 0){ //if there weren't any, make a new project that's being created
+      console.log('need to make a new project');
+      //make a new project in the projects with this user
+      let project_idData = yield axios.post('api/projects/add');
+      yield console.log('project id data data', project_idData.data);
+      yield put({type: 'SET_PROJECT_BEING_ADDED', payload: project_idData.data});
+      yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: project_idData.data[0].id}});
+    }
+    else{
+      yield put({type: 'SET_PROJECT_BEING_ADDED', payload: response});
+      yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: response.data[0].id}});
+    }
+
+    
+
 
 
     

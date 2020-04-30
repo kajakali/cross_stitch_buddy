@@ -51,12 +51,11 @@ class AddProject extends Component {
 
   submitProjectName = () => {
       console.log('the name to submit is: ', this.state.projectName);
-    if(this.props.reduxStore.thisProject.project_name) {
-      console.log('I already Had a name!!!');
-    }
-    else{
-      console.log('i needed a name!');   
-    }
+      //THIS IS WHERE I'M WORKING!!!!!!!
+      this.props.dispatch( {type: 'CHANGE_PROJECT_NAME', payload: {
+        project_id: this.props.reduxStore.thisProject.id,
+        project_name: this.state.projectName
+      }});
   }
   
   changeProjectName = () => {
@@ -79,6 +78,7 @@ class AddProject extends Component {
       <div>
         <h1>Add Project Page!!!</h1>
         {JSON.stringify(this.state)}
+        {JSON.stringify(this.props.reduxStore.thisProject)}
         <p> this page will let you make a new project
         </p>
       <div>

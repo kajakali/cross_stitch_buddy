@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // GET the threads that a specific project will need
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log("in strings router get", req.query.project_id, req.user.id);
     let sqlText = `
     SELECT "thread_needed"."id", "project_id", "color_id", "amount_needed", 
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 //GET a list of all the possible threads from the database with their colors and names and numbers
-router.get('/possible', (req, res) => {
+router.get('/possible', rejectUnauthenticated, (req, res) => {
     console.log("in possible strings router get");
     let sqlText = `SELECT * FROM "possible_thread";`;
     pool.query(sqlText).then( response => {
@@ -39,7 +40,7 @@ router.get('/possible', (req, res) => {
 //POST a new thread needed to the database, with the info about the project that needs it,
 // the color that is needed and the amount needed. The user is irrelevant since the project_id
 //is already guaranteed to be associated with the correct user.
-router.post('/needed', (req, res) => {
+router.post('/needed', rejectUnauthenticated, (req, res) => {
     console.log(req.body.data);
     console.log("in needed strings router post");
     let sqlText = `INSERT INTO "thread_needed" ( "project_id", "color_id", "amount_needed", "color_completed") VALUES 
@@ -55,7 +56,7 @@ router.post('/needed', (req, res) => {
 //DELETE a thread needed based on the id of the line item that the user decided to delete.
 //It returns the project_id because to re render the list of strings on the page, the next step
 //in the saga will need to know which project it's supposed to be getting the strings for
-router.delete('/needed/:id', (req, res) => {
+router.delete('/needed/:id', rejectUnauthenticated, (req, res) => {
     console.log(req.params.id);
     console.log("in needed strings router post");
     let sqlText = `DELETE FROM "thread_needed" WHERE "id" = $1 RETURNING "project_id";`;

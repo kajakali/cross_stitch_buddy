@@ -4,7 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import projects from './projectsReducer';
 import stringsNeeded from './stringsNeededReducer';
-import projectBeingAdded from './projectBeingAddedReducer';
+import thisProject from './thisProject';
 import possibleStrings from './possibleStringsReducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -17,10 +17,10 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
-  projects,
-  projectBeingAdded,
-  stringsNeeded,
-  possibleStrings,
+  projects, //contains a list of projects for this user
+  thisProject, //contains the details of the project being viewed
+  stringsNeeded, //contains the list of strings needed for the project being viewed
+  possibleStrings, //contains the list of all possible strings
 });
 
 export default rootReducer;

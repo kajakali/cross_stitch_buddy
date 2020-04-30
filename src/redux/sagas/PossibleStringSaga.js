@@ -1,7 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-
+//get all of the possible strings from the database
+//put them in the possible strings reducer
 function* fetchPossibleStrings(action) {
   try {
     console.log(action.payload);

@@ -39,8 +39,7 @@ class ProjectsList extends Component {
         return (
             <div>
                 <h1>Projects List</h1>
-                <p> needs table and buttons from material ui.
-                    once it's not the home page it needs a button to go home
+                <p> this page lists all the projects that the user is working on
                 </p>
 
                 {JSON.stringify(this.props.reduxStore.projects)}

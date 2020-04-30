@@ -24,80 +24,87 @@ const styles = theme => ({
 
 class ProjectsList extends Component {
 
-    componentDidMount() {
-        this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.match.params.id}} );
-    }
+  componentDidMount() {
+    this.props.dispatch( {type: 'FETCH_CURRENT_PROJECT', payload: {project_id: this.props.match.params.id}} );
+  }
 
-    editStringButton = () => {
-        console.log('edit this string!');
-    }
+  render() {
+    const {classes} = this.props;
+    return (
+      <div>
+          <h1>Individual Project Page</h1>
+          <h1>{this.props.reduxStore.thisProject.project_name}</h1>
+          <img 
+            src={this.props.reduxStore.thisProject.project_image} 
+            alt={this.props.reduxStore.thisProject.project_name}
+          />
+          <h4>Start Date: {this.props.reduxStore.thisProject.start_date}</h4>
 
-    backToListButton = () => {
-        this.props.history.push('/projectslist');
-    }
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Color Number</TableCell>
+              <TableCell>Amount Required</TableCell>
+              <TableCell>Color Name</TableCell>
+              <TableCell>Color</TableCell>
+              <TableCell>Button</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            
 
-    render() {
-        const {classes} = this.props;
-        return (
-            <div>
-                <h1>Individual Project Page</h1>
-                {JSON.stringify(this.props.match.params.id)}
-                <p> this page will display the strings for one project
-                </p>
-
-                {JSON.stringify(this.props.stringsNeeded)}
-
-
-    
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Color Number</TableCell>
-            <TableCell>Amount Required</TableCell>
-            <TableCell>Color Name</TableCell>
-            <TableCell>Color</TableCell>
-            <TableCell>Button</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-
-                
-                {this.props.reduxStore.stringsNeeded.length > 0 && this.props.reduxStore.stringsNeeded.map(item => (
-                  <TableRow key={item.id}>
-                    <TableCell component="th" scope="row">
-                      {item.number}
-                    </TableCell>
-                    <TableCell>
-                      {item.amount_needed}
-                    </TableCell>
-                    <TableCell>
-                      {item.color_name}
-                    </TableCell>
-                    <TableCell>
-                      <div style={{backgroundColor: `#${item.color_value}`, height:'50px', width: '50px' }}></div>
-                      {item.color_value}
-                    </TableCell>
-                    <TableCell>
-                      <Button 
-                        variant="contained" 
-                        onClick={this.editStringButton}>Edit String
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
- 
-                <TableRow key='add'>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell><Button variant="contained" onClick={this.completeProjectButton}>Mark Project Complete</Button></TableCell>
-                </TableRow>
-              </TableBody>
-      </Table>
-<Button variant="contained" onClick={this.backToListButton}>Back to Projects List</Button>
-            </div>
-        );
-    }
+        {/* Here are all the colors needed for this project mapped from the list in the reducer */}   
+          {this.props.reduxStore.stringsNeeded.length > 0 && this.props.reduxStore.stringsNeeded.map(item => (
+            <TableRow key={item.id}>
+              <TableCell component="th" scope="row">
+                {item.number}
+              </TableCell>
+              <TableCell>
+                {item.amount_needed}
+              </TableCell>
+              <TableCell>
+                {item.color_name}
+              </TableCell>
+              <TableCell>
+                <div style={{
+                  backgroundColor: `#${item.color_value}`,
+                  height:'50px', 
+                  width: '50px' }}>
+                </div>
+              </TableCell>
+              <TableCell>
+                <Button 
+                  variant="contained" 
+                  onClick={() => console.log(`I bought a new 
+                  piece of string and I want to put it here`)}>
+                    Add a Piece of String
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+  
+            <TableRow key='add'>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                  <Button 
+                    variant="contained" 
+                    onClick={() => console.log('I want to mark this project complete!')}>
+                      Mark Project Complete
+                  </Button>
+                </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <Button 
+          variant="contained" 
+          onClick={() => this.props.history.push('/projectslist')}>
+            Back to Projects List
+        </Button>
+      </div>
+    );
+  }
 }
 
 ProjectsList.propTypes = {
@@ -105,9 +112,7 @@ ProjectsList.propTypes = {
   };
   
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({stringsNeeded}) => ({ stringsNeeded });
+
 const mapStateToProps = (reduxStore) => ({
   reduxStore
 });

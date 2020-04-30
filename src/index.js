@@ -15,6 +15,10 @@ import purple from '@material-ui/core/colors/purple';
 import pink from '@material-ui/core/colors/pink';
 import red from '@material-ui/core/colors/red';
 
+
+//Here is my theme. It makes the primary color light purple and the secondary color light pink
+//It also makes the font bigger, but I might make it smaller
+//I might also want to add a gradient, and perhaps generalized properties for buttons
 const theme = createMuiTheme({
   palette: {
     primary: {main: purple[200]},
@@ -24,7 +28,10 @@ const theme = createMuiTheme({
     tonalOffset: 0.2,
   },
   typography: {
-    fontSize: 16
+    fontSize: 13
+  },
+  shape: {
+    borderRadius: 8
   }
 });
 

@@ -88,16 +88,29 @@ router.post('/add', rejectUnauthenticated, (req, res) =>{
 
 //PUT to mark a project that was being created as a normal project that is no longer going to show up
 //when the user goes to the add project page
-router.put('/', rejectUnauthenticated, (req, res) => {
+router.put('/save', rejectUnauthenticated, (req, res) => {
     console.log(req.body.data, req.user);
     let sqlText = `UPDATE "project"
     SET "being_created" = FALSE
     WHERE "id" = $1 AND "user_id" = $2;`;
     pool.query(sqlText, [req.body.data.project_id, req.user.id]).then( response => {
-        res.sendStatus(200);
+        res.send({project_id: response.rows[0].id});
     }).catch( error => {
         console.log('error in updating project', error);
         res.sendStatus(500);
+    });
+})
+
+router.put('/change', rejectUnauthenticated, (req, res) => {
+    console.log('changing project name', req.body.data.project_id, req.body.data.project_name, req.user.id);
+    let sqlText = `UPDATE "project_details" 
+    SET "project_name"=$2 WHERE "id"=$1 RETURNING "id";
+    `;
+    pool.query(sqlText, [req.body.data.project_id, req.body.data.project_name]).then( response => {
+        res.send({project_id: response.rows[0].id});
+    }).catch( error => {
+        console.log('error in updating project', error);
+        res.sendStatus(500); 
     });
 })
 

@@ -41,18 +41,13 @@ function* fetchProjectBeingAdded() {
       //make a new project in the projects with this user
       let project_idData = yield axios.post('api/projects/add');
       yield console.log('project id data data', project_idData.data);
-      yield put({type: 'SET_PROJECT_BEING_ADDED', payload: project_idData.data});
+      yield put({type: 'SET_THIS_PROJECT', payload: project_idData.data});
       yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: project_idData.data[0].id}});
     }
     else{
-      yield put({type: 'SET_PROJECT_BEING_ADDED', payload: response});
+      yield put({type: 'SET_THIS_PROJECT', payload: response});
       yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: response.data[0].id}});
     }
-
-    
-
-
-
     
   }
   catch (error) {
@@ -68,7 +63,7 @@ function* fetchCurrentProject(action) {
    yield console.log('in fetch current project saga, payload:', action.payload );
     const response = yield axios.get(`api/projects/${action.payload.project_id}`);
     yield console.log('response to fetch current project', response);
-    yield put({type: 'SET_PROJECT_BEING_ADDED', payload: response});
+    yield put({type: 'SET_THIS_PROJECT', payload: response});
     yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: response.data[0].id}});
   }
   catch (error) {
@@ -79,10 +74,20 @@ function* fetchCurrentProject(action) {
 function* saveProject(action) {
   try {
     yield console.log('save project payload:', action.payload);
-    yield axios.put('api/projects', {data: action.payload});
+    yield axios.put('api/projects/save', {data: action.payload});
   }
   catch (error) {
     console.log('Error in saving project', error);
+  }
+}
+function* changeProjectName(action) {
+  try {
+    yield console.log('change project name payload:', action.payload);
+    yield axios.put('api/projects/change', {data: action.payload});
+    //TODO might need a line here to FETCH_CURRENT_PROJECT with the id that I get back?
+  }
+  catch (error) {
+    console.log('Error in changing project name', error);
   }
 }
 
@@ -92,6 +97,7 @@ function* ProjectSaga() {
   yield takeLatest('FETCH_PROJECT_BEING_ADDED', fetchProjectBeingAdded);
   yield takeLatest('SAVE_PROJECT', saveProject);
   yield takeLatest('FETCH_CURRENT_PROJECT', fetchCurrentProject);
+  yield takeLatest('CHANGE_PROJECT_NAME', changeProjectName);
 }
 
 export default ProjectSaga;

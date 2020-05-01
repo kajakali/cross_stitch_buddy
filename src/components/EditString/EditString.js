@@ -24,10 +24,20 @@ const styles = theme => ({
   });
 
 class EditString extends Component {
-
+    state = ({
+        amount: ''
+    })
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: this.props.match.params.id}} );
-    //TODO actually make this connect
+    }
+
+    editString = (id) => {
+        console.log('id', id);
+        //TODO some logic to make sure it's actually a number, and not zero, and confirmation dialogs 
+        //and regex
+        this.props.dispatch( {type: 'EDIT_AVAILABLE_STRING', payload: { //TODO have this connnect
+            thread_available_id: this.state.amount, //TODO this should really be the id from the value of the button
+            thread_available_amount: this.state.amount}} );
     }
 
   render() {
@@ -37,6 +47,7 @@ class EditString extends Component {
         <h1>edit string page</h1>
         {JSON.stringify(this.props.match.params.id)}
         {JSON.stringify(this.props.reduxStore.thisColor)}
+        {JSON.stringify(this.state)}
         <p>
             this page needs a field and a better button, maybe we could even go back to where we were...?
         </p>
@@ -67,6 +78,7 @@ class EditString extends Component {
         </TableRow>
     </TableHead>
     <TableBody>
+        {/*TODO we should only show the edit button if the project number matches this project number */}
         {this.props.reduxStore.thisColor.map( item => (
             <TableRow key={item.thread_available_id}>
                 <TableCell>
@@ -89,10 +101,20 @@ class EditString extends Component {
                     </div>
                 </TableCell>
                 <TableCell>
-                    <TextField />
+                    <TextField 
+                        label="amount needed" 
+                        type="number"
+                        value={this.state.amount} 
+                        onChange={(event, value) => (this.setState({
+                            amount: event.target.value}))}
+                    />
                 </TableCell>
                 <TableCell>
-                    <Button>Edit this string</Button>
+                    <Button
+                    onClick={() => this.editString(`${item.thread_available_id}`)}
+                    >
+                        Edit This String
+                    </Button>
                 </TableCell>
             </TableRow>
         ))}

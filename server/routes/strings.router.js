@@ -6,13 +6,17 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET the threads that a specific project will need
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log("in strings router get", req.query.project_id, req.user.id);
-    let sqlText = `
-    SELECT "thread_needed"."id", "project_id", "color_id", "amount_needed", 
-    "color_completed", "being_created", "number", "color_name", "color_value"  
-    FROM "thread_needed" JOIN "project" 
+    let sqlText = `SELECT "thread_needed"."id", 
+    "thread_needed"."project_id", "thread_needed"."color_id", 
+    "amount_needed", "color_completed", "being_created", "number", 
+    "color_name", "color_value", "thread_available"."id" AS "amount_available_id", 
+    "amount_available"  
+    FROM "thread_needed" 
+    LEFT JOIN "thread_available" ON "thread_needed"."color_id" = "thread_available"."color_id" 
+    JOIN "project" 
     ON "project"."id" = "thread_needed"."project_id"
-    JOIN "possible_thread" ON "possible_thread"."id" = "thread_needed"."color_id"  
-    WHERE "project_id" = $1 AND "user_id" = $2 ORDER BY "thread_needed"."id";`;
+    JOIN "possible_thread" ON "possible_thread"."id" = "thread_needed"."color_id"   
+    WHERE "thread_needed"."project_id" = $1 AND "user_id" = $2 ORDER BY "thread_needed"."id";`;
     pool.query(sqlText, [ req.query.project_id, req.user.id]).then( response => {
         res.send(response.rows);
     }).catch( error => {
@@ -23,7 +27,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 //GET a list of all the possible threads from the database with their colors and names and numbers
 router.get('/possible', rejectUnauthenticated, (req, res) => {
-    console.log("in possible strings router get");
     let sqlText = `SELECT * FROM "possible_thread";`;
     pool.query(sqlText).then( response => {
         res.send(response.rows);
@@ -32,6 +35,21 @@ router.get('/possible', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500);
     });
 });
+
+router.get('/color/:id', rejectUnauthenticated, (req, res) => {
+    let sqlText= `SELECT "thread_available"."id" AS "thread_available_id",
+     "project_id", "color_id", "amount_available", "project_name", 
+     "possible_thread"."number" AS "color_number", "color_name", "color_value" 
+     FROM "thread_available"
+    JOIN "project_details" ON "thread_available"."project_id" = "project_details"."id"
+    JOIN "possible_thread" ON "thread_available"."color_id" = "possible_thread"."id"
+    WHERE "color_id" = $1;`;
+    pool.query(sqlText, [req.params.id]).then( response => {
+        res.send(response.rows);
+    }).catch( error => {
+        console.log('error in getting this color', error);
+    })
+})
 
  
 

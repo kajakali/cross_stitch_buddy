@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import ProjectsList from '../ProjectsList/ProjectsList';
 import IndividualProject from '../IndividualProject/IndividualProject';
 import AddProject from '../AddProject/AddProject';
+import EditString from '../EditString/EditString';
 
 import './App.css';
 
@@ -58,6 +59,11 @@ class App extends Component {
               exact
               path="/info"
               component={InfoPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/edit/:id"
+              component={EditString}
             />
             <ProtectedRoute
               exact

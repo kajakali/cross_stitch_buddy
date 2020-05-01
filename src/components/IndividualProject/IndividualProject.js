@@ -34,10 +34,16 @@ class ProjectsList extends Component {
       <div>
           <h1>Individual Project Page</h1>
           <h1>{this.props.reduxStore.thisProject.project_name}</h1>
-          <img 
-            src={this.props.reduxStore.thisProject.project_image} 
-            alt={this.props.reduxStore.thisProject.project_name}
-          />
+          {this.props.reduxStore.thisProject.project_image?
+            <img 
+              src={this.props.reduxStore.thisProject.project_image} 
+              alt={this.props.reduxStore.thisProject.project_name}
+            />  
+          :
+            <>
+            </>
+          }
+
           <h4>Start Date: {this.props.reduxStore.thisProject.start_date}</h4>
 
         <Table className={classes.table}>
@@ -47,6 +53,7 @@ class ProjectsList extends Component {
               <TableCell>Amount Required</TableCell>
               <TableCell>Color Name</TableCell>
               <TableCell>Color</TableCell>
+              <TableCell>Amount Available</TableCell>
               <TableCell>Button</TableCell>
             </TableRow>
           </TableHead>
@@ -73,11 +80,17 @@ class ProjectsList extends Component {
                 </div>
               </TableCell>
               <TableCell>
+                {item.amount_available}
+              </TableCell>
+              <TableCell>
+                
+              </TableCell>
+              <TableCell>
+                {/*The id below lets us get the information about pieces of string of this color */}
                 <Button 
                   variant="contained" 
-                  onClick={() => console.log(`I bought a new 
-                  piece of string and I want to put it here`)}>
-                    Add a Piece of String
+                  onClick={() => this.props.history.push(`/edit/${item.color_id}`)}>
+                    Edit a piece of string
                 </Button>
               </TableCell>
             </TableRow>

@@ -37,11 +37,22 @@ function* deleteNeededString(action) {
     console.log('Error with deleting a needed string:', error);
   }
 }
+//this finds all pieces of string in the database of this color 
+function* fetchThisColorString(action) {
+  try {
+    const response = yield axios.get(`api/strings/color/${action.payload.string_color_id}`);
+    yield put({ type: 'SET_THIS_COLOR_STRINGS', payload: response});
+  }
+  catch (error) {
+    console.log('error in fetching all string of this color', error);
+  }
+}
 
 function* StringSaga() {
   yield takeLatest('ADD_NEEDED_STRING', addNeededString);
   yield takeLatest('FETCH_NEEDED_STRINGS', fetchNeededStrings);
   yield takeLatest('DELETE_NEEDED_STRING', deleteNeededString);
+  yield takeLatest('FETCH_ALL_STRING_THIS_COLOR', fetchThisColorString);
 }
 
 export default StringSaga;

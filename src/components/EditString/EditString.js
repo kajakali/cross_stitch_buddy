@@ -46,9 +46,12 @@ class EditString extends Component {
     return (
       <div>
         <h1>edit string page</h1>
-        {JSON.stringify(this.props.match.params.id)}
+        {JSON.stringify(this.props.match.params)}
         {JSON.stringify(this.props.reduxStore.thisColor)}
         {JSON.stringify(this.state)}
+        <p>location</p>
+        {JSON.stringify(this.props.location)}
+
         <p>
             this page needs a field and a better button, maybe we could even go back to where we were...?
         </p>
@@ -79,6 +82,12 @@ class EditString extends Component {
         </TableRow>
     </TableHead>
     <TableBody>
+        <TableRow>
+            <Button
+            onClick={() => console.log('this string color is', this.props.reduxStore.thisColor.color_id)}>
+                Add A piece of this color string
+            </Button>
+        </TableRow>
         {/*TODO we should only show the edit button if the project number matches this project number */}
         {this.props.reduxStore.thisColor.map( item => (
             <TableRow key={item.thread_available_id}>
@@ -103,7 +112,7 @@ class EditString extends Component {
                 </TableCell>
                 <TableCell>
                     <TextField 
-                        label="amount needed" 
+                        label="amount available" 
                         type="number"
                         value={this.state.amount} 
                         onChange={(event, value) => (this.setState({

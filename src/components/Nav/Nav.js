@@ -1,26 +1,69 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { withStyles } from '@material-ui/core/styles';
 import './Nav.css';
 
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   },
+  button: {
+    padding: theme.spacing(2, 1),
+    align: 'center',
+    color: 'inherit',
+  },
+  nav: {
+    overflow: 'hidden',
+  },
+  navTitle: {
+    fontSize: 26,
+    display: 'inline-block',
+    color: '#000000',
+    fontStyle: 'bold',
+    padding: theme.spacing(1),
+  
+  },
+  navLink: {
+
+      float: 'left',
+      color: '#000000',
+      align: 'center',
+      padding: theme.spacing(2, 1),
+      //border: 'none',
+      //cursor: 'pointer',
+      outline: 0,
+      
+      fontSize: 15,
+      '&:hover': {
+        background: "#f2f2f2",
+      },
+
+    
+    
+  },
+
   input: {
     display: 'none',
   },
+
 });
 
-const Nav = (props) => (
-  <div className="nav">
+function Nav(props) {
+  const { classes } = props;
+  return(
+    <div className={`${classes.nav} ${classes.root}`}>
     <Link to="/home">
-      <h2 className="nav-title">Cross Stitch Buddy</h2>
+      <h2 className={classes.navTitle}>Cross Stitch Buddy</h2>
     </Link>
     <div className="nav-right">
-      <Link className="nav-link" to="/home">
+      <Link className={classes.navLink} to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
@@ -29,28 +72,30 @@ const Nav = (props) => (
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>
-          <Link className="nav-link" to="/info">
+          <Link className={classes.navLink} to="/info">
             Info Page
           </Link>
-          <Link className="nav-link" to="/projectslist">
+          <Link className={classes.navLink} to="/projectslist">
             Projects List
           </Link>
-          <Link className="nav-link" to="/project">
+          <Link className={classes.navLink} to="/project">
             Project
           </Link>
-          <Link className="nav-link" to="/addproject">
+          <Link className={classes.navLink} to="/addproject">
             Add Project
           </Link>
-          <LogOutButton className="nav-link"/>
+          <LogOutButton className={classes.Button}/>
         </>
       )}
       {/* Always show this link since the about page is not protected */}
-      <Link className="nav-link" to="/about">
+{/*       <Link className={classes.navLink} to="/about">
         About
-      </Link>
+      </Link> */}
     </div>
   </div>
-);
+  )
+  
+};
 
 // Instead of taking everything from state, we just want the user
 // object to determine if they are logged in

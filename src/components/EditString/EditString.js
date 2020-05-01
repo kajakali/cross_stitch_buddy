@@ -68,7 +68,7 @@ class EditString extends Component {
     </TableHead>
     <TableBody>
         {this.props.reduxStore.thisColor.map( item => (
-            <TableRow>
+            <TableRow key={item.thread_available_id}>
                 <TableCell>
                     {item.project_name}
                 </TableCell>

@@ -134,8 +134,8 @@ class EditString extends Component {
 
         <Button 
           variant="contained" 
-          onClick={() => this.props.history.push('/projectslist')}>
-            Back to Projects List
+          onClick={() => this.props.history.push(`/project/${this.props.match.params.project_id}`)}>
+            Back to Project
         </Button>
       </div>
     );

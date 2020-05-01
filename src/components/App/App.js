@@ -87,7 +87,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/edit/:id/:project_id"
+              path="/edit/:color_id/:project_id"
               component={EditString}
             />
             <ProtectedRoute

@@ -29,7 +29,7 @@ class EditString extends Component {
         thread_available_id: ''
     })
   componentDidMount() {
-    this.props.dispatch( {type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: this.props.match.params.id}} );
+    this.props.dispatch( {type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: this.props.match.params.color_id}} );
     }
 
     editString = (id) => {
@@ -49,8 +49,7 @@ class EditString extends Component {
         {JSON.stringify(this.props.match.params)}
         {JSON.stringify(this.props.reduxStore.thisColor)}
         {JSON.stringify(this.state)}
-        <p>location</p>
-        {JSON.stringify(this.props.location)}
+
 
         <p>
             this page needs a field and a better button, maybe we could even go back to where we were...?
@@ -84,8 +83,8 @@ class EditString extends Component {
     <TableBody>
         <TableRow>
             <Button
-            onClick={() => console.log('this string color is', this.props.reduxStore.thisColor.color_id)}>
-                Add A piece of this color string
+            onClick={() => this.props.dispatch( {type: 'ADD_AVAILABLE_STRING_TO_PROJECT', payload: this.props.match.params} )}>
+                Add a skein of this color string to this project
             </Button>
         </TableRow>
         {/*TODO we should only show the edit button if the project number matches this project number */}
@@ -110,22 +109,25 @@ class EditString extends Component {
                     width: '50px' }}>
                     </div>
                 </TableCell>
+                {/*only allow editing of threads that are located here */}
                 <TableCell>
-                    <TextField 
+                    {(item.project_id === item.thread_available_location) &&
+                        <TextField 
                         label="amount available" 
                         type="number"
                         value={this.state.amount} 
                         onChange={(event, value) => (this.setState({
                             thread_available_id: item.thread_available_id,
                             amount: event.target.value}))}
-                    />
+                    />}
                 </TableCell>
                 <TableCell>
+                    {(item.project_id === item.thread_available_location) &&
                     <Button
                     onClick={() => this.editString(`${item.thread_available_id}`)}
                     >
                         Edit This String
-                    </Button>
+                    </Button>}
                 </TableCell>
             </TableRow>
         ))}

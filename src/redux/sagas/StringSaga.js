@@ -48,11 +48,23 @@ function* fetchThisColorString(action) {
   }
 }
 
+function* addAStringToProject(action) {
+  try {
+    yield axios.post('api/strings/available', action.payload);
+    yield put({ type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: action.payload.color_id}})
+
+  }
+  catch (error) {
+    console.log('error in adding a skein of string to this project');
+
+  }
+}
 function* StringSaga() {
   yield takeLatest('ADD_NEEDED_STRING', addNeededString);
   yield takeLatest('FETCH_NEEDED_STRINGS', fetchNeededStrings);
   yield takeLatest('DELETE_NEEDED_STRING', deleteNeededString);
   yield takeLatest('FETCH_ALL_STRING_THIS_COLOR', fetchThisColorString);
+  yield takeLatest('ADD_AVAILABLE_STRING_TO_PROJECT', addAStringToProject);
 }
 
 export default StringSaga;

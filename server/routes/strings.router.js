@@ -39,7 +39,8 @@ router.get('/possible', rejectUnauthenticated, (req, res) => {
 router.get('/color/:id', rejectUnauthenticated, (req, res) => {
     let sqlText= `SELECT "thread_available"."id" AS "thread_available_id",
      "project_id", "color_id", "amount_available", "project_name", 
-     "possible_thread"."number" AS "color_number", "color_name", "color_value" 
+     "possible_thread"."number" AS "color_number", "color_name", "color_value", 
+     "thread_available"."project_id" AS "thread_available_location" 
      FROM "thread_available"
     JOIN "project_details" ON "thread_available"."project_id" = "project_details"."id"
     JOIN "possible_thread" ON "thread_available"."color_id" = "possible_thread"."id"
@@ -69,6 +70,17 @@ router.post('/needed', rejectUnauthenticated, (req, res) => {
         console.log('error in adding a needed string', error);
         res.sendStatus(500);
     });
+});
+router.post('/available', rejectUnauthenticated, (req, res) => {
+    console.log(req.body.color_id, req.body.project_id);
+    let sqlText = `INSERT INTO "thread_available" ( "project_id", "color_id", "amount_available") VALUES 
+    ( $2, $1, '1.000');`;
+    pool.query(sqlText, [req.body.color_id, req.body.project_id]).then( response => {
+        res.sendStatus(200);
+    }).catch( error => {
+        console.log('error in adding an available string', error);
+        res.sendStatus(500);
+    }); 
 });
 
 //DELETE a thread needed based on the id of the line item that the user decided to delete.

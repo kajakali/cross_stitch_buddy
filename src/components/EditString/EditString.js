@@ -25,7 +25,8 @@ const styles = theme => ({
 
 class EditString extends Component {
     state = ({
-        amount: ''
+        thread_available_amount: '',
+        thread_available_id: ''
     })
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: this.props.match.params.id}} );
@@ -106,6 +107,7 @@ class EditString extends Component {
                         type="number"
                         value={this.state.amount} 
                         onChange={(event, value) => (this.setState({
+                            thread_available_id: item.thread_available_id,
                             amount: event.target.value}))}
                     />
                 </TableCell>

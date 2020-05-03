@@ -51,11 +51,13 @@ class AddProject extends Component {
 
   submitProjectName = () => {
       console.log('the name to submit is: ', this.state.projectName);
-      //THIS IS WHERE I'M WORKING!!!!!!!
       this.props.dispatch( {type: 'CHANGE_PROJECT_NAME', payload: {
         project_id: this.props.reduxStore.thisProject.id,
         project_name: this.state.projectName
       }});
+      //TODO at some point, this should also do something so that state gets set to match?
+      // or somthing - so that once you send the new name, the page gets the new name and THEN
+      //re renders, so it shows the new name
   }
   
   changeProjectName = () => {
@@ -65,11 +67,24 @@ class AddProject extends Component {
   
   addColor = () => {
     console.log('add this color!', this.state.color.id, this.state.amount);
-    this.props.dispatch( {type: 'ADD_NEEDED_STRING', payload: {
-      color_id: this.state.color.id, 
-      amount: this.state.amount,
-      project_id: this.props.reduxStore.thisProject.id
-    }} );
+    //don't add a needed color that already exists
+    let addIt = true;
+    for (let i = 0; i<this.props.reduxStore.stringsNeeded.length; i++ ){
+      if ((this.state.color.id === this.props.reduxStore.stringsNeeded[i].color_id)){
+        console.log('we already had one of these! Edit it, do not make a new one!');
+        //TODO make this into a material UI alert or some such dialog - something prettier
+        alert(`you've already made an instance of this color in this project. Please delete it or edit it`)
+        addIt = false;
+      }
+    }
+    if(addIt){
+      this.props.dispatch( {type: 'ADD_NEEDED_STRING', payload: {
+        color_id: this.state.color.id, 
+        amount: this.state.amount,
+        project_id: this.props.reduxStore.thisProject.id
+      }} );
+    }
+ 
   }
 
   render() {
@@ -79,6 +94,8 @@ class AddProject extends Component {
         <h1>Add Project Page!!!</h1>
         {JSON.stringify(this.state)}
         {JSON.stringify(this.props.reduxStore.thisProject)}
+        <p>string needed:</p>
+        {this.props.reduxStore.stringsNeeded[1] && JSON.stringify(this.props.reduxStore.stringsNeeded[1].color_id)}
         <p> this page will let you make a new project
         </p>
       <div>

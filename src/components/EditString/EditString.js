@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import EditStringDialog from '../EditStringDialog/EditStringDialog';
 
 
 const styles = theme => ({
@@ -33,7 +34,9 @@ class EditString extends Component {
     }
 
     editString = (id) => {
-        console.log('id', id);
+        console.log('id', id, 'amount', this.state.thread_available_amount);
+        
+
         //TODO some logic to make sure it's actually a number, and not zero, and confirmation dialogs 
         //and regex
         this.props.dispatch( {type: 'EDIT_AVAILABLE_STRING', payload: { //TODO have this connnect
@@ -111,7 +114,7 @@ class EditString extends Component {
                 </TableCell>
                 {/*only allow editing of threads that are located here */}
                 <TableCell>
-                    {(item.project_id === item.thread_available_location) &&
+ {/*                    {(item.project_id === item.thread_available_location) &&
                         <TextField 
                         label="amount available" 
                         type="number"
@@ -119,15 +122,22 @@ class EditString extends Component {
                         onChange={(event, value) => (this.setState({
                             thread_available_id: item.thread_available_id,
                             amount: event.target.value}))}
-                    />}
+                    />} */}
                 </TableCell>
                 <TableCell>
                     {(item.project_id === item.thread_available_location) &&
-                    <Button
-                    onClick={() => this.editString(`${item.thread_available_id}`)}
-                    >
-                        Edit This String
-                    </Button>}
+                    /** WORKING HERE TODO Turn this button into a confirmation dialog button from my spike */
+                    <>
+                        <Button
+                        onClick={() => this.editString(`${item.thread_available_id}`)}
+                        >
+                            Edit This String
+                        </Button>
+                        <EditStringDialog                     
+                        project_id={item.project_id}
+                        thread_available_id={item.thread_available_id}/>
+                    </>
+                    }
                 </TableCell>
             </TableRow>
         ))}

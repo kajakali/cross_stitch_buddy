@@ -83,6 +83,7 @@ class AddProject extends Component {
         amount: this.state.amount,
         project_id: this.props.reduxStore.thisProject.id
       }} );
+      //TODO clear state for the next time
     }
  
   }

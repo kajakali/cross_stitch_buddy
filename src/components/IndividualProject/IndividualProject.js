@@ -90,10 +90,10 @@ class ProjectsList extends Component {
                 <Button 
                   variant="contained" 
                   projectId={this.props.reduxStore.thisProject.project_id}
-                  onClick={() => this.props.history.push(`/edit/${item.color_id}/${this.props.reduxStore.thisProject.id}`)}>
+                  onClick={() => this.props.history.push(`/view/${item.color_id}/${this.props.reduxStore.thisProject.id}`)}>
                     
                     
-                    Edit a piece of string
+                    View Strings
                 </Button>
               </TableCell>
             </TableRow>

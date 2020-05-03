@@ -24,7 +24,7 @@ const styles = theme => ({
     },
   });
 
-class EditString extends Component {
+class ViewColor extends Component {
     state = ({
         thread_available_amount: '',
         thread_available_id: ''
@@ -160,4 +160,4 @@ const mapStateToProps = (reduxStore) => ({
   reduxStore
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps)(EditString)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps)(ViewColor)));

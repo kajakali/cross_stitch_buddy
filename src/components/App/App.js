@@ -20,7 +20,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import ProjectsList from '../ProjectsList/ProjectsList';
 import IndividualProject from '../IndividualProject/IndividualProject';
 import AddProject from '../AddProject/AddProject';
-import EditString from '../EditString/EditString';
+import ViewColor from '../ViewColor/ViewColor';
 
 import './App.css';
 
@@ -87,8 +87,8 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/edit/:color_id/:project_id"
-              component={EditString}
+              path="/view/:color_id/:project_id"
+              component={ViewColor}
             />
             <ProtectedRoute
               exact

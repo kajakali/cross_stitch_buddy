@@ -33,7 +33,7 @@ class AddProject extends Component {
 
   state = {
       projectName: '',
-      color: '',
+      color: this.props.reduxStore.possibleStrings[0],
       amount: ''
   }
   handleChange = name => event => {
@@ -43,6 +43,7 @@ class AddProject extends Component {
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_PROJECT_BEING_ADDED'} );
     this.props.dispatch( {type: 'FETCH_POSSIBLE_STRINGS'} );
+    //TODO put FETCH_NEEDED_STRINGS in the saga after FETCH PROJECT BEING ADDED
     this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.reduxStore.thisProject.id}});
   }
 
@@ -202,7 +203,7 @@ class AddProject extends Component {
                 id="color-combo-box"
                 options={this.props.reduxStore.possibleStrings}
                 value={this.state.color}
-                getOptionLabel={(option) => option.number}
+                getOptionLabel={(option) => option.number }
                 style={{ width: 300 }}
                 onChange={(event, value) => this.setState({
                   color: value
@@ -213,6 +214,9 @@ class AddProject extends Component {
             <TableCell>
               <TextField 
               label="amount needed" 
+              InputLabelProps={{
+                shrink: true,
+              }}
               value={this.state.amount} 
               onChange={(event, value) => this.setState({
                 amount: event.target.value})}/>

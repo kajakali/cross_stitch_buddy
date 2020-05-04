@@ -76,6 +76,7 @@ function* saveProject(action) {
   try {
     yield console.log('save project payload:', action.payload);
     yield axios.put('api/projects/save', {data: action.payload});
+    yield put({ type: 'FETCH_PROJECTS'});
   }
   catch (error) {
     console.log('Error in saving project', error);

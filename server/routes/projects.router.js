@@ -93,7 +93,7 @@ router.put('/save', rejectUnauthenticated, (req, res) => {
     console.log(req.body.data, req.user);
     let sqlText = `UPDATE "project"
     SET "being_created" = FALSE
-    WHERE "id" = $1 AND "user_id" = $2;`;
+    WHERE "id" = $1 AND "user_id" = $2 RETURNING "id";`;
     pool.query(sqlText, [req.body.data.project_id, req.user.id]).then( response => {
         res.send({project_id: response.rows[0].id});
     }).catch( error => {
@@ -101,7 +101,10 @@ router.put('/save', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500);
     });
 })
-
+//TODO:  have this piece of sql code happen next so that a start date is assigned
+/* UPDATE "project_details" 
+SET "start_date" = NOW() 
+WHERE "id" = $1 AND "user_id" = $2 RETURNING "id"; */
 router.put('/change', rejectUnauthenticated, (req, res) => {
     console.log('changing project name', req.body.data.project_id, req.body.data.project_name, req.user.id);
     let sqlText = `UPDATE "project_details" 

@@ -78,6 +78,7 @@ class ViewColor extends Component {
     </TableHead>
     <TableBody>
         <TableRow>
+            {/**TODO maybe only show the add skein button if there's not already a skein in the reducer that matches the project id */}
             <Button
             className={classes.addSkein}
         
@@ -86,7 +87,6 @@ class ViewColor extends Component {
                 Add a skein of this color string to this project
             </Button>
         </TableRow>
-        {/*TODO we should only show the edit button if the project number matches this project number */}
         {this.props.reduxStore.thisColor.map( item => (
             <TableRow key={item.thread_available_id}>
                 <TableCell>
@@ -122,8 +122,6 @@ class ViewColor extends Component {
                 </TableCell>
                 <TableCell>
                     {(item.project_id === item.thread_available_location) &&
-                    /** WORKING HERE TODO Turn this button into a confirmation dialog button from my spike */
-                    
                     <EditStringDialog    
                     color_id={this.props.match.params.color_id}                 
                     project_id={item.project_id}

@@ -61,7 +61,8 @@ function* fetchProjectBeingAdded() {
 function* fetchCurrentProject(action) {
   try {
    yield console.log('in fetch current project saga, payload:', action.payload );
-    const response = yield axios.get(`api/projects/${action.payload.project_id}`);
+   console.log('the id of the project you are supposed to get', action.payload);
+    const response = yield axios.get(`api/projects/${action.payload.data.project_id}`);
     yield console.log('response to fetch current project', response);
     yield put({type: 'SET_THIS_PROJECT', payload: response});
     yield put({ type: 'FETCH_NEEDED_STRINGS', payload: {project_id: response.data[0].id}});

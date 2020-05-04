@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET all the projects and their details for the logged in user
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.user);
-    let sqlText = `SELECT * FROM "project" JOIN "project_details" ON "project_details"."id" = "project"."id" WHERE "user_id" = $1;`;
+    let sqlText = `SELECT * FROM "project" JOIN "project_details" ON "project_details"."id" = "project"."id" WHERE "user_id" = $1 AND "being_created" = FALSE;`;
     //TODO - don't actually show the project thats being added on the projects list - so only get the projects WHERE being_created = FALSE
     pool.query(sqlText, [req.user.id]).then( response => {
         res.send(response.rows);
@@ -33,7 +33,7 @@ router.get('/add', rejectUnauthenticated, (req, res) => {
 //GET the information about the project with a specific id. The user_id is redundant but a safety measure
 //to prevent users from getting other people's projects
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.params.id, req.user.id);
+    console.log('the project id and the user id for the project we are fetching', req.params.id, req.user.id);
      let sqlText = `SELECT * FROM "project" 
     JOIN "project_details" ON "project_details"."id" = "project"."id"
     WHERE "user_id" = $1 AND "project"."id" = $2;`;
@@ -75,7 +75,7 @@ router.post('/add', rejectUnauthenticated, (req, res) =>{
         VALUES ($1) RETURNING "id";`;
         console.log('in post add step 1', response.rows[0].id);
         pool.query(newSqlText, [response.rows[0].id]).then( response => {
-            console.log('in post add step 2', response);
+            console.log('in post add step 2', response.rows[0].id);
             res.sendStatus(200);
         }).catch( error => {
             console.log('error in making a blank new project', error); 

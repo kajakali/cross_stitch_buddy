@@ -62,7 +62,11 @@ class AddProject extends Component {
   
   changeProjectName = () => {
     console.log('delete this project name');
-    //make a put route that removes the project_name from the database?
+    this.props.dispatch( {type: 'CHANGE_PROJECT_NAME', payload: {
+      project_id: this.props.reduxStore.thisProject.id,
+      project_name: ''
+    }});
+
   }
   
   addColor = () => {
@@ -83,6 +87,9 @@ class AddProject extends Component {
         amount: this.state.amount,
         project_id: this.props.reduxStore.thisProject.id
       }} );
+      this.setState({
+        amount: '',
+      })
       //TODO clear state for the next time
     }
  

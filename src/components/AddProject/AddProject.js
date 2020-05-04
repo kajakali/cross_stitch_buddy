@@ -23,8 +23,8 @@ const styles = theme => ({
       minWidth: 400,
     },
     textField: {
-        marginLeft: theme.spacing,
-        marginRight: theme.spacing,
+        marginLeft: theme.spacing(),
+        marginRight: theme.spacing(),
         width: 200,
       },
   });

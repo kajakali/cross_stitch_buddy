@@ -7,6 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.user);
     let sqlText = `SELECT * FROM "project" JOIN "project_details" ON "project_details"."id" = "project"."id" WHERE "user_id" = $1;`;
+    //TODO - don't actually show the project thats being added on the projects list - so only get the projects WHERE being_created = FALSE
     pool.query(sqlText, [req.user.id]).then( response => {
         res.send(response.rows);
     }).catch( error => {
@@ -71,7 +72,7 @@ router.post('/add', rejectUnauthenticated, (req, res) =>{
     pool.query(sqlText, [req.user.id]).then( response => {
         let newSqlText = `INSERT INTO "project_details" 
         ("id") 
-        VALUES ( $1);`;
+        VALUES ($1) RETURNING "id";`;
         console.log('in post add step 1', response.rows[0].id);
         pool.query(newSqlText, [response.rows[0].id]).then( response => {
             console.log('in post add step 2', response);

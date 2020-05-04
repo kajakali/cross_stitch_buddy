@@ -21,7 +21,8 @@ import red from '@material-ui/core/colors/red';
 //I might also want to add a gradient, and perhaps generalized properties for buttons
 const theme = createMuiTheme({
   palette: {
-    primary: {main: purple[200]},
+    primary: {main: purple[200],
+              mainGradient: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'},
     secondary: {main: pink[200]},
     error: red,
     contrastThreshold: 3,

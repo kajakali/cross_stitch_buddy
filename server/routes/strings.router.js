@@ -98,4 +98,29 @@ router.delete('/needed/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//delete a piece of string from a project
+router.delete('/available/:thread_available_id', rejectUnauthenticated, (req, res) => {
+    console.log('in delete an available string', req.params.thread_available_id);
+    let sqlText = `DELETE FROM "thread_available" WHERE "id" = $1 RETURNING "color_id";`;
+    pool.query(sqlText, [req.params.thread_available_id]).then( response => {
+        res.sendStatus(200);
+    }).catch( error => {
+        console.log('error in deleting this thread', error);
+        res.sendStatus(500);
+    });
+});
+
+// edit the amount of string available in a project
+router.put('/available', rejectUnauthenticated, (req, res) => {
+    console.log('in put an available string', req.body.data, req.user);
+    let sqlText = `UPDATE "thread_available"
+    SET "amount_available" = $2
+    WHERE "id" = $1 RETURNING "color_id";`;
+    pool.query(sqlText, [req.body.data.thread_available_id, req.body.data.amount]).then( response => {
+        res.sendStatus(200);
+    }).catch( error => {
+        console.log('error in editing this string', error);
+    });
+});
+
 module.exports = router;

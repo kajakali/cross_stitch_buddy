@@ -22,6 +22,9 @@ const styles = theme => ({
     table: {
       minWidth: 400,
     },
+    addSkein: {
+        background: 'mainGradient',
+      },
   });
 
 class ViewColor extends Component {
@@ -86,6 +89,7 @@ class ViewColor extends Component {
     <TableBody>
         <TableRow>
             <Button
+            className={classes.addSkein}
             onClick={() => this.props.dispatch( {type: 'ADD_AVAILABLE_STRING_TO_PROJECT', payload: this.props.match.params} )}>
                 Add a skein of this color string to this project
             </Button>
@@ -133,7 +137,8 @@ class ViewColor extends Component {
                         >
                             Edit This String
                         </Button>
-                        <EditStringDialog                     
+                        <EditStringDialog    
+                        color_id={this.props.match.params.color_id}                 
                         project_id={item.project_id}
                         thread_available_id={item.thread_available_id}/>
                     </>

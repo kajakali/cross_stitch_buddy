@@ -51,7 +51,7 @@ function* fetchThisColorString(action) {
 function* addAStringToProject(action) {
   try {
     yield axios.post('api/strings/available', action.payload);
-    yield put({ type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: action.payload.color_id}})
+    yield put({ type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: action.payload.color_id}});
 
   }
   catch (error) {
@@ -59,12 +59,35 @@ function* addAStringToProject(action) {
 
   }
 }
+
+function* deleteAvailableStringInstance(action) {
+  try {
+    yield axios.delete(`api/strings/available/${action.payload.thread_available_id}`);
+    yield put({ type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: action.payload.color_id}});
+  }
+  catch (error) {
+    console.log('error in deleting this piece of string', error);
+  }
+}
+
+function* editAvailableStringInstance(action) {
+  try {
+    yield axios.put('api/strings/available', {data: action.payload});
+    yield put({ type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: action.payload.color_id}});
+  }
+  catch (error) {
+    console.log('error in editing this piece of string', error);
+  }
+}
+
 function* StringSaga() {
   yield takeLatest('ADD_NEEDED_STRING', addNeededString);
   yield takeLatest('FETCH_NEEDED_STRINGS', fetchNeededStrings);
   yield takeLatest('DELETE_NEEDED_STRING', deleteNeededString);
   yield takeLatest('FETCH_ALL_STRING_THIS_COLOR', fetchThisColorString);
   yield takeLatest('ADD_AVAILABLE_STRING_TO_PROJECT', addAStringToProject);
+  yield takeLatest('DELETE_AVAILABLE_STRING_INSTANCE', deleteAvailableStringInstance);
+  yield takeLatest('EDIT_AVAILABLE_STRING_INSTANCE', editAvailableStringInstance);
 }
 
 export default StringSaga;

@@ -23,7 +23,8 @@ const styles = theme => ({
       minWidth: 400,
     },
     addSkein: {
-        background: 'mainGradient',
+        backgroundColor: 'primary',
+        whiteSpace: 'nowrap',
       },
   });
 
@@ -34,17 +35,6 @@ class ViewColor extends Component {
     })
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_ALL_STRING_THIS_COLOR', payload: {string_color_id: this.props.match.params.color_id}} );
-    }
-
-    editString = (id) => {
-        console.log('id', id, 'amount', this.state.thread_available_amount);
-        
-
-        //TODO some logic to make sure it's actually a number, and not zero, and confirmation dialogs 
-        //and regex
-        this.props.dispatch( {type: 'EDIT_AVAILABLE_STRING', payload: { //TODO have this connnect
-            thread_available_id: this.state.amount, //TODO this should really be the id from the value of the button
-            thread_available_amount: this.state.amount}} );
     }
 
   render() {
@@ -90,6 +80,8 @@ class ViewColor extends Component {
         <TableRow>
             <Button
             className={classes.addSkein}
+        
+            variant='contained'
             onClick={() => this.props.dispatch( {type: 'ADD_AVAILABLE_STRING_TO_PROJECT', payload: this.props.match.params} )}>
                 Add a skein of this color string to this project
             </Button>
@@ -131,17 +123,12 @@ class ViewColor extends Component {
                 <TableCell>
                     {(item.project_id === item.thread_available_location) &&
                     /** WORKING HERE TODO Turn this button into a confirmation dialog button from my spike */
-                    <>
-                        <Button
-                        onClick={() => this.editString(`${item.thread_available_id}`)}
-                        >
-                            Edit This String
-                        </Button>
-                        <EditStringDialog    
-                        color_id={this.props.match.params.color_id}                 
-                        project_id={item.project_id}
-                        thread_available_id={item.thread_available_id}/>
-                    </>
+                    
+                    <EditStringDialog    
+                    color_id={this.props.match.params.color_id}                 
+                    project_id={item.project_id}
+                    thread_available_id={item.thread_available_id}/>
+                    
                     }
                 </TableCell>
             </TableRow>

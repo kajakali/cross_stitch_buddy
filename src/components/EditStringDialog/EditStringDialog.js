@@ -61,7 +61,7 @@ class EditStringDialog extends React.Component {
     return (
       <div>
         <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>
-          Slide in alert dialog
+          Edit this string
         </Button>
         <Dialog
           open={this.state.open}
@@ -72,15 +72,12 @@ class EditStringDialog extends React.Component {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="alert-dialog-slide-title">
-            {`Edit String Instance!
-            project id: ${this.props.project_id}
-            string item id: ${this.props.thread_available_id}`} 
+            {`The amount of string has changed!`} 
             
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
               How much string is there now?
-              state: {JSON.stringify(this.state)}
               <TextField
                 id="new-amount"
                 select
@@ -111,10 +108,10 @@ class EditStringDialog extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => this.handleClose('go back!')} color="primary">
-              Go Back!
+              Oops, never mind!
             </Button>
-            <Button onClick={() => this.handleClose(`${this.state.amount}`)} color="primary">
-              Mark Complete!
+            <Button onClick={() => this.handleClose(`${this.state.amount}`)} variant="contained" color="primary">
+              Edit!
             </Button>
           </DialogActions>
         </Dialog>

@@ -75,8 +75,8 @@ class ProjectsList extends Component {
               <TableCell>
                 <div style={{
                   backgroundColor: `#${item.color_value}`,
-                  height:'50px', 
-                  width: '50px' }}>
+                  height:'10px', 
+                  width: '20px' }}>
                 </div>
               </TableCell>
               <TableCell>

@@ -80,6 +80,17 @@ function* editAvailableStringInstance(action) {
   }
 }
 
+function* fetchAllThreads() {
+  try {
+    const response = yield axios.get('api/strings/all');
+    yield put({ type: 'SET_ENTIRE_THREAD_LIST', payload: response});
+    
+  }
+  catch (error) {
+    console.log('error in fetching all the strings saga', error);
+  }
+}
+
 function* StringSaga() {
   yield takeLatest('ADD_NEEDED_STRING', addNeededString);
   yield takeLatest('FETCH_NEEDED_STRINGS', fetchNeededStrings);
@@ -88,6 +99,7 @@ function* StringSaga() {
   yield takeLatest('ADD_AVAILABLE_STRING_TO_PROJECT', addAStringToProject);
   yield takeLatest('DELETE_AVAILABLE_STRING_INSTANCE', deleteAvailableStringInstance);
   yield takeLatest('EDIT_AVAILABLE_STRING_INSTANCE', editAvailableStringInstance);
+  yield takeLatest('FETCH_ALL_THREADS', fetchAllThreads);
 }
 
 export default StringSaga;

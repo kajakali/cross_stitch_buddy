@@ -79,6 +79,13 @@ class ProjectsList extends Component {
                 </TableRow>
               </TableBody>
       </Table>
+      <Button
+        color='primary'
+        variant='contained'
+        onClick={() => this.props.history.push('/home')}
+      >
+        Home
+      </Button>
             </div>
         );
     }

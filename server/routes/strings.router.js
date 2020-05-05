@@ -56,6 +56,37 @@ router.get('/color/:id', rejectUnauthenticated, (req, res) => {
     })
 })
 
+router.get('/all', rejectUnauthenticated, (req, res) => {
+    let sqlText = `
+    SELECT * FROM "possible_thread"
+    FULL JOIN
+    (
+         SELECT "color_id", SUM("amount_available") AS "available" 
+         FROM "thread_available" 
+         JOIN "project" 
+         ON "thread_available"."project_id" = "project"."id" 
+         WHERE "user_id" = $1 
+         GROUP BY "color_id" 
+    ) AS "had" ON "had"."color_id" = "possible_thread"."id"
+    FULL JOIN
+    (
+        SELECT "color_id", SUM("amount_needed") AS "needed" 
+        FROM "thread_needed" 
+        JOIN "project" 
+        ON "thread_needed"."project_id" = "project"."id" 
+        WHERE "user_id" = $1 
+        GROUP BY "color_id" 
+    ) AS "needed" on "needed"."color_id" = "possible_thread"."id" 
+    ORDER BY "possible_thread"."id"
+;`;
+    pool.query(sqlText, [req.user.id]).then( response => {
+        res.send(response.rows);
+    }).catch( error => {
+        console.log('error in getting this users list of thread', error);
+        res.sendStatus(500);
+    });
+});
+
  
 
 

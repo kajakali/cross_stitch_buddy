@@ -183,7 +183,7 @@ class AddProject extends Component {
               {item.color_name}
             </TableCell>
             <TableCell>
-              <div style={{backgroundColor: `#${item.color_value}`, height:'50px', width: '50px' }}></div>
+              <div style={{backgroundColor: `#${item.color_value}`, height:'10px', width: '20px' }}></div>
               {item.color_value}
             </TableCell>
             <TableCell>                      

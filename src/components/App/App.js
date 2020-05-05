@@ -21,6 +21,7 @@ import ProjectsList from '../ProjectsList/ProjectsList';
 import IndividualProject from '../IndividualProject/IndividualProject';
 import AddProject from '../AddProject/AddProject';
 import ViewColor from '../ViewColor/ViewColor';
+import ThreadList from '../ThreadList/ThreadList';
 
 import './App.css';
 
@@ -95,7 +96,12 @@ class App extends Component {
               path="/projectslist"
               component={ProjectsList}
             />
-                        <ProtectedRoute
+            <ProtectedRoute
+              exact
+              path="/threadlist"
+              component={ThreadList}
+            />
+            <ProtectedRoute
               exact
               path="/addproject"
               component={AddProject}

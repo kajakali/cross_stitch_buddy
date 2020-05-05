@@ -7,6 +7,7 @@ import stringsNeeded from './stringsNeededReducer';
 import thisProject from './thisProjectReducer';
 import possibleStrings from './possibleStringsReducer';
 import thisColor from './thisColorReducer';
+import entireThreadList from './entireThreadListReducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   stringsNeeded, //contains the list of strings needed for the project being viewed
   possibleStrings, //contains the list of all possible strings
   thisColor, //contains all the instances of a given color
+  entireThreadList, //shows which threads the user has or needs
 });
 
 export default rootReducer;

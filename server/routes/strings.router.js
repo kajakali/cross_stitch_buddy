@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     JOIN "project" 
     ON "project"."id" = "thread_needed"."project_id"
     JOIN "possible_thread" ON "possible_thread"."id" = "thread_needed"."color_id"   
-    WHERE "thread_needed"."project_id" = $1 AND "user_id" = $2 ORDER BY "number";`;
+    WHERE "thread_needed"."project_id" = $1 AND "user_id" = $2 ORDER BY cast("number" as integer);`;
     pool.query(sqlText, [ req.query.project_id, req.user.id]).then( response => {
         res.send(response.rows);
     }).catch( error => {

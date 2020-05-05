@@ -121,7 +121,7 @@ class ViewColor extends Component {
                     />} */}
                 </TableCell>
                 <TableCell>
-                    {(item.project_id === item.thread_available_location) &&
+                    {(Number(this.props.match.params.project_id) === Number(item.thread_available_location)) &&
                     <EditStringDialog    
                     color_id={this.props.match.params.color_id}                 
                     project_id={item.project_id}

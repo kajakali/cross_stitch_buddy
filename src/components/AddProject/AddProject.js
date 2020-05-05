@@ -33,7 +33,7 @@ class AddProject extends Component {
 
   state = {
       projectName: '',
-      color: this.props.reduxStore.possibleStrings[0],
+      color: '',
       amount: ''
   }
   handleChange = name => event => {
@@ -202,6 +202,7 @@ class AddProject extends Component {
               <Autocomplete
                 id="color-combo-box"
                 options={this.props.reduxStore.possibleStrings}
+                defaultOption={this.props.reduxStore.possibleStrings[0]}
                 value={this.state.color}
                 getOptionLabel={(option) => option.number }
                 style={{ width: 300 }}

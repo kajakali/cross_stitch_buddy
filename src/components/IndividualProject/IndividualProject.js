@@ -53,7 +53,7 @@ class ProjectsList extends Component {
               <TableCell>Amount Required</TableCell>
               <TableCell>Color Name</TableCell>
               <TableCell>Color</TableCell>
-              <TableCell>Amount Available</TableCell>
+              <TableCell>Total Available</TableCell>
               <TableCell>Button</TableCell>
             </TableRow>
           </TableHead>
@@ -80,7 +80,7 @@ class ProjectsList extends Component {
                 </div>
               </TableCell>
               <TableCell>
-                {item.amount_available}
+                {item.total_available}
               </TableCell>
               <TableCell>
                 

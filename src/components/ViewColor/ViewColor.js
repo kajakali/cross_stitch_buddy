@@ -121,12 +121,18 @@ class ViewColor extends Component {
                     />} */}
                 </TableCell>
                 <TableCell>
-                    {(Number(this.props.match.params.project_id) === Number(item.thread_available_location)) &&
+                    {(Number(this.props.match.params.project_id) === Number(item.thread_available_location)) ?
                     <EditStringDialog    
                     color_id={this.props.match.params.color_id}                 
                     project_id={item.project_id}
                     thread_available_id={item.thread_available_id}/>
-                    
+                    :
+                    <Button
+                        variant='outlined'
+                        color='secondary'
+                        onClick={() => this.props.history.push(`/project/${item.thread_available_location}`)}
+                    >View Project
+                    </Button>
                     }
                 </TableCell>
             </TableRow>

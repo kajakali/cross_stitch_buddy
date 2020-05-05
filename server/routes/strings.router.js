@@ -9,14 +9,18 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     let sqlText = `SELECT "thread_needed"."id", 
     "thread_needed"."project_id", "thread_needed"."color_id", 
     "amount_needed", "color_completed", "being_created", "number", 
-    "color_name", "color_value", "thread_available"."id" AS "amount_available_id", 
-    "amount_available"  
+    "color_name", "color_value", 
+    "total_available"  
     FROM "thread_needed" 
-    LEFT JOIN "thread_available" ON "thread_needed"."color_id" = "thread_available"."color_id" 
+    LEFT JOIN (
+        SELECT "color_id", SUM("amount_available") AS "total_available" FROM "thread_available" 
+        GROUP BY "color_id"
+    ) AS "a"
+    ON "thread_needed"."color_id" = "a"."color_id" 
     JOIN "project" 
     ON "project"."id" = "thread_needed"."project_id"
     JOIN "possible_thread" ON "possible_thread"."id" = "thread_needed"."color_id"   
-    WHERE "thread_needed"."project_id" = $1 AND "user_id" = $2 ORDER BY "thread_needed"."id";`;
+    WHERE "thread_needed"."project_id" = $1 AND "user_id" = $2 ORDER BY "number";`;
     pool.query(sqlText, [ req.query.project_id, req.user.id]).then( response => {
         res.send(response.rows);
     }).catch( error => {

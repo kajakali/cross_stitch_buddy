@@ -115,6 +115,7 @@ class ProjectsList extends Component {
         </Table>
         <Button 
           variant="contained" 
+          color='primary'
           onClick={() => this.props.history.push('/projectslist')}>
             Back to Projects List
         </Button>

@@ -36,7 +36,7 @@ class ThreadList extends Component {
 
 
 
-        <Table className={classes.table}>
+        <Table className={classes.table} size='small' aria-label='a table of all the threads'>
           <TableHead>
             <TableRow>
               <TableCell>Color Number</TableCell>

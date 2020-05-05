@@ -40,6 +40,7 @@ router.get('/possible', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//get all the information about  locations of a color of thread
 router.get('/color/:id', rejectUnauthenticated, (req, res) => {
     let sqlText= `SELECT "thread_available"."id" AS "thread_available_id",
      "project_id", "color_id", "amount_available", "project_name", 
@@ -56,6 +57,7 @@ router.get('/color/:id', rejectUnauthenticated, (req, res) => {
     })
 })
 
+//get a list of all the possible threads which also shows which threads the user currently has or needs
 router.get('/all', rejectUnauthenticated, (req, res) => {
     let sqlText = `
     SELECT * FROM "possible_thread"

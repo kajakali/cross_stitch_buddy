@@ -81,7 +81,7 @@ class ViewColor extends Component {
             {/**TODO maybe only show the add skein button if there's not already a skein in the reducer that matches the project id */}
             <Button
             className={classes.addSkein}
-        
+            color='secondary'
             variant='contained'
             onClick={() => this.props.dispatch( {type: 'ADD_AVAILABLE_STRING_TO_PROJECT', payload: this.props.match.params} )}>
                 Add a skein of this color string to this project
@@ -142,6 +142,7 @@ class ViewColor extends Component {
 
         <Button 
           variant="contained" 
+          color='primary'
           onClick={() => this.props.history.push(`/project/${this.props.match.params.project_id}`)}>
             Back to Project
         </Button>

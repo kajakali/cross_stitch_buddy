@@ -54,7 +54,7 @@ class ProjectsList extends Component {
               <TableCell>Color Name</TableCell>
               <TableCell>Color</TableCell>
               <TableCell>Total Available</TableCell>
-              <TableCell>Button</TableCell>
+              <TableCell>Thread Still Needed</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -75,15 +75,15 @@ class ProjectsList extends Component {
               <TableCell>
                 <div style={{
                   backgroundColor: `#${item.color_value}`,
-                  height:'10px', 
-                  width: '20px' }}>
+                  height:'40px', 
+                  width: '40px' }}>
                 </div>
               </TableCell>
               <TableCell>
                 {item.total_available}
               </TableCell>
-              <TableCell>
-                
+              <TableCell style={{color: 'red'}}>
+                {(item.amount_needed - item.total_available) > 0 && item.amount_needed - item.total_available}
               </TableCell>
               <TableCell>
                 {/*The id below lets us get the information about pieces of string of this color */}
@@ -91,8 +91,6 @@ class ProjectsList extends Component {
                   variant="contained" 
                   projectId={this.props.reduxStore.thisProject.project_id}
                   onClick={() => this.props.history.push(`/view/${item.color_id}/${this.props.reduxStore.thisProject.id}`)}>
-                    
-                    
                     View Strings
                 </Button>
               </TableCell>

@@ -45,7 +45,14 @@ class ProjectsList extends Component {
           }
 
           <h4>Start Date: {this.props.reduxStore.thisProject.start_date}</h4>
+          <Button 
+          variant="contained" 
+          color='primary'
+          onClick={() => this.props.history.push('/projectslist')}>
+            Back to Projects List
+        </Button>
 
+        
         <Table className={classes.table} size='small' aria-label='a table of threads associated with this project'>
           <TableHead>
             <TableRow>

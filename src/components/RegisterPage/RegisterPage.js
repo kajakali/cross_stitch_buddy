@@ -46,7 +46,6 @@ class RegisterPage extends Component {
           <h1>Register User</h1>
           <div>
               <TextField
-                variant="filled"
                 label="Username"
                 type="text"
                 name="username"
@@ -56,7 +55,6 @@ class RegisterPage extends Component {
           </div>
           <div>
               <TextField
-                variant="filled"
                 label="Password"
                 type="password"
                 name="password"

@@ -39,10 +39,7 @@ class ProjectsList extends Component {
         return (
             <div>
                 <h1>Projects List</h1>
-                <p> this page lists all the projects that the user is working on
-                </p>
 
-                {JSON.stringify(this.props.reduxStore.projects)}
 
     
       <Table className={classes.table} size="small" aria-label='a table of the users projects'>

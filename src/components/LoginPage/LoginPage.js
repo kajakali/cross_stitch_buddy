@@ -47,7 +47,6 @@ import Button from '@material-ui/core/Button';
            <h1>Login</h1>
            <div>
                <TextField
-                 variant="filled"
                  label="Username"
                  type="text"
                  name="username"
@@ -57,7 +56,6 @@ import Button from '@material-ui/core/Button';
            </div>
            <div>
                <TextField
-                 variant="filled"
                  label="Password"
                  type="password"
                  name="password"

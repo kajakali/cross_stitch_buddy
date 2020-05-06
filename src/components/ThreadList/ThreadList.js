@@ -35,6 +35,14 @@ class ThreadList extends Component {
           <h1>Threads List!</h1>
 
 
+            <Button
+                color='primary'
+                variant='contained'
+                onClick={() => this.props.history.push('/home')}
+                >
+                Home
+            </Button>
+
 
         <Table className={classes.table} size='small' aria-label='a table of all the threads'>
           <TableHead>
@@ -44,7 +52,7 @@ class ThreadList extends Component {
               <TableCell>Color Name</TableCell>
               <TableCell>Amount Required</TableCell>
               <TableCell>Amount Available</TableCell>
-              <TableCell>Button</TableCell>
+              <TableCell>{/*Button*/}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

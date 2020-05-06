@@ -14,6 +14,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     FROM "thread_needed" 
     LEFT JOIN (
         SELECT "color_id", SUM("amount_available") AS "total_available" FROM "thread_available" 
+        JOIN "project" 
+        ON "thread_available"."project_id" = "project"."id" 
+        WHERE "user_id" = $1 
         GROUP BY "color_id"
     ) AS "a"
     ON "thread_needed"."color_id" = "a"."color_id" 
@@ -41,7 +44,6 @@ router.get('/possible', rejectUnauthenticated, (req, res) => {
 });
 
 //get all the information about  locations of a color of thread
-//TODO ONLY get the string THIS USER owns
 router.get('/color/:id', rejectUnauthenticated, (req, res) => {
     let sqlText= `SELECT "thread_available"."id" AS "thread_available_id",
      "project_id", "color_id", "amount_available", "project_name", 

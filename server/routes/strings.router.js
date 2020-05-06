@@ -41,6 +41,7 @@ router.get('/possible', rejectUnauthenticated, (req, res) => {
 });
 
 //get all the information about  locations of a color of thread
+//TODO ONLY get the string THIS USER owns
 router.get('/color/:id', rejectUnauthenticated, (req, res) => {
     let sqlText= `SELECT "thread_available"."id" AS "thread_available_id",
      "project_id", "color_id", "amount_available", "project_name", 
@@ -49,8 +50,9 @@ router.get('/color/:id', rejectUnauthenticated, (req, res) => {
      FROM "thread_available"
     JOIN "project_details" ON "thread_available"."project_id" = "project_details"."id"
     JOIN "possible_thread" ON "thread_available"."color_id" = "possible_thread"."id"
-    WHERE "color_id" = $1;`;
-    pool.query(sqlText, [req.params.id]).then( response => {
+    JOIN "project" ON "project_details"."id" = "project"."id"
+    WHERE "color_id" = $1 AND "user_id" = $2;`;
+    pool.query(sqlText, [req.params.id, req.user.id]).then( response => {
         res.send(response.rows);
     }).catch( error => {
         console.log('error in getting this color', error);

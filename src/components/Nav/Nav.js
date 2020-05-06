@@ -17,7 +17,6 @@ const styles = theme => ({
   button: {
     padding: theme.spacing(2, 1),
     align: 'center',
-    color: 'inherit',
   },
   nav: {
     overflow: 'hidden',
@@ -84,7 +83,7 @@ function Nav(props) {
           <Link className={classes.navLink} to="/addproject">
             Add Project
           </Link>
-          <LogOutButton className={classes.Button}/>
+          <LogOutButton className={classes.button}/>
         </>
       )}
       {/* Always show this link since the about page is not protected */}

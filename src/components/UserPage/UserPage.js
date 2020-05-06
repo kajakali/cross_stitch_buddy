@@ -21,6 +21,9 @@ const styles = theme => ({
     table: {
       minWidth: 400,
     },
+    button: {
+      color: 'primary'
+    }
   });
 
 class UserPage extends Component {
@@ -39,18 +42,20 @@ class UserPage extends Component {
       <p>Your ID is: { this.props.reduxStore.user.id }</p>
       <Button
         onClick={() => this.props.history.push('/projectslist')}
+        color='primary'
         variant='contained'
         >
         Projects
       </Button>
       <Button
         onClick={() => this.props.history.push('/threadlist')}
+        color='primary'
         variant='contained'
       >
         Threads
       </Button>
   
-      <LogOutButton className="log-in" />
+      <LogOutButton className={classes.button} />
     </div>
     );
   }

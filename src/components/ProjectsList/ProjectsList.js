@@ -45,7 +45,7 @@ class ProjectsList extends Component {
                 {JSON.stringify(this.props.reduxStore.projects)}
 
     
-      <Table className={classes.table}>
+      <Table className={classes.table} size="small" aria-label='a table of the users projects'>
         <TableHead>
           <TableRow>
             <TableCell>Project Name</TableCell>

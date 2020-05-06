@@ -1,18 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Button from '@material-ui/core/Button';
 
 const LogOutButton = props => (
-  <button
-    // This button shows up in multiple locations and is styled differently
-    // because it's styled differently depending on where it is used, the className
-    // is passed to it from it's parents through React props
-    className={props.className}
-    onClick={() => props.dispatch({ type: 'LOGOUT' })}
-  >
+
+  <Button className={props.className} onClick={() => props.dispatch({ type: 'LOGOUT' })}>
     <ExitToAppIcon fontSize='small'/>
     Log Out
-  </button>
+  </Button>
+
 );
 
 // This component doesn't need 'mapStateToProps'

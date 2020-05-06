@@ -46,7 +46,7 @@ class ProjectsList extends Component {
 
           <h4>Start Date: {this.props.reduxStore.thisProject.start_date}</h4>
 
-        <Table className={classes.table}>
+        <Table className={classes.table} size='small' aria-label='a table of threads associated with this project'>
           <TableHead>
             <TableRow>
               <TableCell>Color Number</TableCell>

@@ -101,14 +101,8 @@ class AddProject extends Component {
     return (
       <div>
         <h1>Add Project Page!!!</h1>
-        {JSON.stringify(this.state)}
-        {JSON.stringify(this.props.reduxStore.thisProject)}
-        <p>string needed:</p>
-        {this.props.reduxStore.stringsNeeded[1] && JSON.stringify(this.props.reduxStore.stringsNeeded[1].color_id)}
-        <p> this page will let you make a new project
-        </p>
       <div>
-      <Table className={classes.table}>
+      <Table className={classes.table} size='small' aria-label='a table of strings being added to this project'>
         <TableHead>
           <TableRow>
           {/*This is conditional rendering. If the project already had a name, it will show hereh
@@ -183,7 +177,7 @@ class AddProject extends Component {
               {item.color_name}
             </TableCell>
             <TableCell>
-              <div style={{backgroundColor: `#${item.color_value}`, height:'10px', width: '20px' }}></div>
+              <div style={{backgroundColor: `#${item.color_value}`, height:'40px', width: '20px' }}></div>
               {item.color_value}
             </TableCell>
             <TableCell>                      

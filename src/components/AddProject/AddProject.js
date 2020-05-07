@@ -11,6 +11,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 
 const styles = theme => ({
@@ -31,14 +34,12 @@ const styles = theme => ({
 
 class AddProject extends Component {
 
+
   state = {
       projectName: '',
       color: '',
-      amount: ''
+      amount: '',
   }
-  handleChange = name => event => {
-      this.setState({ [name]: event.target.value });
-    };
 
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_PROJECT_BEING_ADDED'} );
@@ -47,8 +48,9 @@ class AddProject extends Component {
     this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.reduxStore.thisProject.id}});
   }
 
-
-
+  handleChange = name => event => {
+      this.setState({ [name]: event.target.value });
+    }
 
   submitProjectName = () => {
       console.log('the name to submit is: ', this.state.projectName);
@@ -70,7 +72,7 @@ class AddProject extends Component {
 
   }
   
-  addColor = () => {
+  addColor = (event) => {
     console.log('add this color!', this.state.color.id, this.state.amount);
     //don't add a needed color that already exists
     let addIt = true;
@@ -98,6 +100,9 @@ class AddProject extends Component {
 
   render() {
     const {classes} = this.props;
+    if (this.state.color === ''){
+      this.setState({color: this.props.reduxStore.possibleStrings[0]});
+    }  
     return (
       <div>
         <h1>Add Project Page!!!</h1>
@@ -207,14 +212,22 @@ class AddProject extends Component {
               />
             </TableCell>
             <TableCell>
-              <TextField 
-              label="amount needed" 
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={this.state.amount} 
-              onChange={(event, value) => this.setState({
-                amount: event.target.value})}/>
+              <Select
+                value={this.state.amount}
+                onChange={(event, value) => this.setState({
+                  amount: event.target.value})}
+                name="amount"
+                displayEmpty
+                className={classes.selectEmpty}
+              >
+                <MenuItem value={1.000}>1</MenuItem>
+                <MenuItem value={1.500}>1.5</MenuItem>
+                <MenuItem value={2.000}>2</MenuItem>
+                <MenuItem value={2.500}>2.5</MenuItem>
+                <MenuItem value={3.000}>3</MenuItem>
+                <MenuItem value={3.500}>3.5</MenuItem>
+              </Select>
+              <FormHelperText>Amount</FormHelperText>
             </TableCell>
             <TableCell>
               add color button

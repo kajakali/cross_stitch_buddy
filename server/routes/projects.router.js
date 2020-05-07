@@ -49,6 +49,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 /**
  * POST route template
  */
+
+ //isnt' currently used. Should create a new project when a user is created
 router.post('/', rejectUnauthenticated, (req, res) => {
     let sqlText = `
     INSERT INTO "project" ("user_id", "being_created") VALUES ($1, FALSE) RETURNING "id";`;

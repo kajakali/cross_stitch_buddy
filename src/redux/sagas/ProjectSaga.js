@@ -87,7 +87,7 @@ function* changeProjectName(action) {
   try {
     yield console.log('change project name payload:', action.payload);
     const response = yield axios.put('api/projects/change', {data: action.payload});
-    yield put({ type: 'FETCH_CURRENT_PROJECT', payload: response}); //this should be project_id: #
+    yield put({ type: 'FETCH_CURRENT_PROJECT', payload: response.data}); //this should be project_id: #
     //TODO might need a line here to FETCH_CURRENT_PROJECT with the id that I get back?
   }
   catch (error) {

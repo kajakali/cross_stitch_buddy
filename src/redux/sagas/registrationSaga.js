@@ -8,12 +8,10 @@ function* registerUser(action) {
     yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
 
     // passes the username and password from the payload to the server
-    const result = yield axios.post('/api/user/register', action.payload);
+    yield axios.post('/api/user/register', action.payload);
 
     // automatically log a user in after registration
     yield put({ type: 'LOGIN', payload: action.payload });
-          //TODO create a general storage project once a user is made - this isn't working anymore
-          //yield axios.post('/api/projects', result);
     // set to 'login' mode so they see the login screen
     // after registration or after they log out
     yield put({type: 'SET_TO_LOGIN_MODE'});

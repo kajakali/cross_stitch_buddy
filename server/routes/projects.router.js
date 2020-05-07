@@ -51,25 +51,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
  * POST route template
  */
 
- //isnt' currently used. Should create a new project when a user is created
-router.post('/', rejectUnauthenticated, (req, res) => {
-    let sqlText = `
-    INSERT INTO "project" ("user_id", "being_created") VALUES ($1, FALSE) RETURNING "id";`;
-    pool.query(sqlText, [req.body.data.id]).then( response => {
-        let newSqlText = `INSERT INTO "project_details" 
-        ("id", "project_name", "start_date") 
-        VALUES ( $1, 'General Storage', '2008-01-12');`;
-        pool.query(newSqlText, [response.rows[0].id]).then( response => {
-            res.sendStatus(200);
-        }).catch( error => {
-            console.log('error in making a new project', error); 
-            res.sendStatus(500);
-        });
-    }).catch( error => {
-        console.log('error in making general storage project', error); 
-        res.sendStatus(500);
-    });
-});
+
 router.post('/add', rejectUnauthenticated, (req, res) =>{
     let sqlText = `INSERT INTO "project" ("user_id") VALUES ($1) RETURNING "id";`;
     pool.query(sqlText, [req.user.id]).then( response => {

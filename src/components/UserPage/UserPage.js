@@ -29,7 +29,7 @@ const styles = theme => ({
 class UserPage extends Component {
 
   componentDidMount() {
-    this.props.dispatch( {type: 'FETCH_CURRENT_PROJECT', payload: {project_id: this.props.match.params.id}} );
+    //TODO figure out if I want anything from the database here... but right now I don't this.props.dispatch( {type: 'FETCH_CURRENT_PROJECT', payload: {project_id: this.props.match.params.id}} );
   }
 
   render() {

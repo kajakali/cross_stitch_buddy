@@ -103,4 +103,17 @@ router.put('/change', rejectUnauthenticated, (req, res) => {
     });
 })
 
+router.put('/image', rejectUnauthenticated, (req, res) => {
+    console.log('changing project image', req.body.data.project_id, req.body.data.project_image, req.user.id);
+    let sqlText = `UPDATE "project_details" 
+    SET "project_image"=$2 WHERE "id"=$1 RETURNING "id";
+    `;
+    pool.query(sqlText, [req.body.data.project_id, req.body.data.project_image]).then( response => {
+        res.send({project_id: response.rows[0].id});
+    }).catch( error => {
+        console.log('error in updating project', error);
+        res.sendStatus(500); 
+    });
+})
+
 module.exports = router;

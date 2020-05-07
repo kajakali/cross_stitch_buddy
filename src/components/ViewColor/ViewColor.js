@@ -41,15 +41,14 @@ class ViewColor extends Component {
     const {classes} = this.props;
     return (
       <div>
-        <h1>edit string page</h1>
-        {JSON.stringify(this.props.match.params)}
+        <h1>View Color</h1>
+{/*         {JSON.stringify(this.props.match.params)}
         {JSON.stringify(this.props.reduxStore.thisColor)}
         {JSON.stringify(this.state)}
+        TODO i might want to take the color div out of the table and put it up here since they're all the same
+ */}
 
-
-        <p>
-            this page needs a field and a better button, maybe we could even go back to where we were...?
-        </p>
+ 
 <Table>
     <TableHead>
         <TableRow>
@@ -133,6 +132,7 @@ class ViewColor extends Component {
                     >View Project
                     </Button>
                     }
+                    {/* TODO maybe instead here we could have a button to transfer a piece of string to this project */}
                 </TableCell>
             </TableRow>
         ))}

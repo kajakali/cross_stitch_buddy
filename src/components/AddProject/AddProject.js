@@ -44,7 +44,8 @@ class AddProject extends Component {
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_PROJECT_BEING_ADDED'} );
     this.props.dispatch( {type: 'FETCH_POSSIBLE_STRINGS'} );
-this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.reduxStore.thisProject.id}});
+//TODO this needs to happen after getting the project being added 
+//  this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.reduxStore.thisProject.id}});
   }
 
   handleChange = name => event => {

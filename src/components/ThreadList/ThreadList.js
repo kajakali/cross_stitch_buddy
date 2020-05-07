@@ -52,7 +52,7 @@ class ThreadList extends Component {
               <TableCell>Color Name</TableCell>
               <TableCell>Amount Required</TableCell>
               <TableCell>Amount Available</TableCell>
-              <TableCell>{/*Button*/}</TableCell>
+              <TableCell>Amount Needed</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -78,6 +78,11 @@ class ThreadList extends Component {
                         </TableCell>
                         <TableCell>
                             {item.available}
+                        </TableCell>
+                        <TableCell>
+                        <TableCell style={{color: 'red'}}>
+                            {(item.needed - item.available) > 0 && item.needed - item.available}
+                            </TableCell>
                         </TableCell>
                     </TableRow>
                 )

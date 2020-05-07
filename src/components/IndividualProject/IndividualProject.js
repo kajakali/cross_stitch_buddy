@@ -96,7 +96,7 @@ class ProjectsList extends Component {
                 {/*The id below lets us get the information about pieces of string of this color */}
                 <Button 
                   variant="contained" 
-                  projectId={this.props.reduxStore.thisProject.project_id}
+                  //TODO delete this projectId={this.props.reduxStore.thisProject.project_id}
                   onClick={() => this.props.history.push(`/view/${item.color_id}/${this.props.reduxStore.thisProject.id}`)}>
                     View Strings
                 </Button>

@@ -92,6 +92,16 @@ function* changeProjectName(action) {
     console.log('Error in changing project name', error);
   }
 }
+function* changeProjectImage(action) {
+  try {
+    yield console.log('change project name payload:', action.payload);
+    const response = yield axios.put('api/projects/image', {data: action.payload});
+    yield put({ type: 'FETCH_CURRENT_PROJECT', payload: response.data}); //this should be project_id: #
+  }
+  catch (error) {
+    console.log('Error in changing project name', error);
+  }
+}
 
 function* ProjectSaga() {
   yield takeLatest('FETCH_PROJECTS', fetchProjects);
@@ -100,6 +110,7 @@ function* ProjectSaga() {
   yield takeLatest('SAVE_PROJECT', saveProject);
   yield takeLatest('FETCH_CURRENT_PROJECT', fetchCurrentProject);
   yield takeLatest('CHANGE_PROJECT_NAME', changeProjectName);
+  yield takeLatest('CHANGE_PROJECT_IMAGE', changeProjectImage);
 }
 
 export default ProjectSaga;

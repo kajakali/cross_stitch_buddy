@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import Box from '@material-ui/core/Box';
 
 
 const styles = theme => ({
@@ -14,12 +15,23 @@ const styles = theme => ({
       display: 'block',
       margin: 'auto',
     },
+    image: {
+      margin: theme.spacing(1),
+      border: theme.spacing(1)
+    },
+    name: {
+      margin: theme.spacing(1),
+      border: theme.spacing(1),
+      justifyContent: 'center',
+      width: '200',
+      height: '200',
+    }
   });
 
 class UserPage extends Component {
 
   componentDidMount() {
-    //TODO maybe get the projects list and show their images here...
+    this.props.dispatch( {type: 'FETCH_PROJECTS'} );
   }
 
   render() {
@@ -30,9 +42,23 @@ class UserPage extends Component {
         Welcome, { this.props.reduxStore.user.username }!
       </h1>
       <p>Your ID is: { this.props.reduxStore.user.id }</p>
-      <div classes={{root: classes.root}}>
-        <img src='http://www.artecyshop.com/images/medium/dolphinsatdawn_MED.jpg' alt='dolphins at dawn'/>
-      </div>
+{/*       <div classes={{root: classes.root}}>
+        <img className={`${classes.image} ${classes.root}`} 
+          src='http://www.artecyshop.com/images/medium/dolphinsatdawn_MED.jpg' 
+          alt='dolphins at dawn'
+        />
+      </div> */}
+      {this.props.reduxStore.projects.map((item) => (item.project_image?    
+        <img className={`${classes.image}`} 
+          key={item.id} 
+          width='200' 
+          src={item.project_image} 
+          alt={item.project_name}
+        />
+        :
+      <span/>
+      ))}
+      {/**just here is where i could stick in an image? */}
       <Button
         classes={{root: classes.root}}
         onClick={() => this.props.history.push('/projectslist')}

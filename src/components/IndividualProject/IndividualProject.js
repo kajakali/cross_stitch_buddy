@@ -9,30 +9,50 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import { TextField } from '@material-ui/core';
 
 
 const styles = theme => ({
     root: {
       width: '100%',
+      margin: theme.spacing(1),
       marginTop: theme.spacing(3),
       overflowX: 'auto',
     },
     table: {
       minWidth: 400,
     },
+    textfield: {
+      width: 400,
+    },
   });
 
 class ProjectsList extends Component {
 
+  state = ({
+    projectImage: '',
+  })
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_CURRENT_PROJECT', payload: {project_id: this.props.match.params.id}} );
   }
+
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  }
+
+  submitProjectImage = () => {
+    console.log('the image to submit is: ', this.state.projectImage);
+    this.props.dispatch( {type: 'CHANGE_PROJECT_IMAGE', payload: {
+      project_id: this.props.reduxStore.thisProject.id,
+      project_image: this.state.projectImage
+    }});
+}
+
 
   render() {
     const {classes} = this.props;
     return (
       <div>
-          <h1>Individual Project Page</h1>
           <h1>{this.props.reduxStore.thisProject.project_name}</h1>
           {this.props.reduxStore.thisProject.project_image?
             <img 
@@ -41,6 +61,19 @@ class ProjectsList extends Component {
             />  
           :
             <>
+            <TextField
+                id="projectImage"
+                label="Project Image"
+                className={classes.textField}
+                value={this.state.projectImage}
+                onChange={this.handleChange('projectImage')}
+                margin="normal"
+              />
+              <Button 
+                variant="contained" 
+                color="secondary" 
+                onClick={this.submitProjectImage}>Submit URL
+              </Button>
             </>
           }
 

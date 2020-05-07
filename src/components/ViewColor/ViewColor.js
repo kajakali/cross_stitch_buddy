@@ -78,7 +78,6 @@ class ViewColor extends Component {
     </TableHead>
     <TableBody>
         <TableRow>
-            {/**TODO maybe only show the add skein button if there's not already a skein in the reducer that matches the project id */}
             <Button
             className={classes.addSkein}
             color='secondary'

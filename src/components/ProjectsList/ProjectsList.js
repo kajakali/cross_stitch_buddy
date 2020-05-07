@@ -46,9 +46,7 @@ class ProjectsList extends Component {
         <TableHead>
           <TableRow>
             <TableCell>Project Name</TableCell>
-            <TableCell align="right">Start Date</TableCell>
-            <TableCell align="right">End Date</TableCell>
-            <TableCell align="right">Button</TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,7 +59,7 @@ class ProjectsList extends Component {
                     <TableCell component="th" scope="row">
                       {item.project_name}
                     </TableCell>
-                    <TableCell align="right">{item.start_date}</TableCell>
+                    <TableCell align="right">{/*{item.start_date}*/}</TableCell>
                     <TableCell align="right">{item.end_date}</TableCell>
                     <TableCell align="right"><Button variant="contained" onClick={() => this.props.history.push(`/project/${item.id}`)}>View</Button></TableCell>
       

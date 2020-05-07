@@ -6,8 +6,9 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET all the projects and their details for the logged in user
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.user);
-    let sqlText = `SELECT * FROM "project" JOIN "project_details" ON "project_details"."id" = "project"."id" WHERE "user_id" = $1 AND "being_created" = FALSE;`;
-    //TODO - don't actually show the project thats being added on the projects list - so only get the projects WHERE being_created = FALSE
+    let sqlText = `SELECT * FROM "project" 
+    JOIN "project_details" ON "project_details"."id" = "project"."id" 
+    WHERE "user_id" = $1 AND "being_created" = FALSE;`;
     pool.query(sqlText, [req.user.id]).then( response => {
         res.send(response.rows);
     }).catch( error => {

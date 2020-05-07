@@ -62,7 +62,6 @@ function* fetchCurrentProject(action) {
   try {
    yield console.log('in fetch current project saga, payload:', action.payload );
    console.log('the id of the project you are supposed to get', action.payload);
-   // TODO FIX: needs to be payload.project_id to get it by id, and payload.data.project_id to get it for the add project...
     const response = yield axios.get(`api/projects/${action.payload.project_id}`);
     yield console.log('response to fetch current project', response);
     yield put({type: 'SET_THIS_PROJECT', payload: response});
@@ -88,7 +87,6 @@ function* changeProjectName(action) {
     yield console.log('change project name payload:', action.payload);
     const response = yield axios.put('api/projects/change', {data: action.payload});
     yield put({ type: 'FETCH_CURRENT_PROJECT', payload: response.data}); //this should be project_id: #
-    //TODO might need a line here to FETCH_CURRENT_PROJECT with the id that I get back?
   }
   catch (error) {
     console.log('Error in changing project name', error);

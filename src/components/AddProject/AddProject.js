@@ -44,8 +44,7 @@ class AddProject extends Component {
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_PROJECT_BEING_ADDED'} );
     this.props.dispatch( {type: 'FETCH_POSSIBLE_STRINGS'} );
-    //TODO put FETCH_NEEDED_STRINGS in the saga after FETCH PROJECT BEING ADDED
-    this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.reduxStore.thisProject.id}});
+this.props.dispatch( {type: 'FETCH_NEEDED_STRINGS', payload: {project_id: this.props.reduxStore.thisProject.id}});
   }
 
   handleChange = name => event => {
@@ -58,9 +57,6 @@ class AddProject extends Component {
         project_id: this.props.reduxStore.thisProject.id,
         project_name: this.state.projectName
       }});
-      //TODO at some point, this should also do something so that state gets set to match?
-      // or somthing - so that once you send the new name, the page gets the new name and THEN
-      //re renders, so it shows the new name
   }
   
   changeProjectName = () => {
@@ -93,7 +89,6 @@ class AddProject extends Component {
       this.setState({
         amount: '',
       })
-      //TODO clear state for the next time
     }
  
   }
@@ -106,6 +101,7 @@ class AddProject extends Component {
     return (
       <div>
         <h1>Add Project Page!!!</h1>
+        {JSON.stringify(this.props.reduxStore.thisProject)}
       <div>
       <Table className={classes.table} size='small' aria-label='a table of strings being added to this project'>
         <TableHead>
@@ -117,12 +113,12 @@ class AddProject extends Component {
             <TableCell>
               {this.props.reduxStore.thisProject.id}
             </TableCell>
-            <TableCell align="right">
+            <TableCell >
               {this.props.reduxStore.thisProject.project_name}
             </TableCell>
-            <TableCell align="right">
+            <TableCell >
             </TableCell>
-            <TableCell align="right">
+            <TableCell >
               <Button 
                 variant="contained" 
                 color="secondary" 
@@ -142,17 +138,17 @@ class AddProject extends Component {
                 margin="normal"
               />
             </TableCell>
-            <TableCell align="right">
+            <TableCell >
               <Button 
                 variant="contained" 
                 color="secondary" 
                 onClick={this.submitProjectName}>Name my Project
               </Button>
             </TableCell>
-            <TableCell align="right">
+            <TableCell >
 
             </TableCell>
-            <TableCell align="right">
+            <TableCell >
 
             </TableCell>
           </>}
@@ -182,11 +178,12 @@ class AddProject extends Component {
               {item.color_name}
             </TableCell>
             <TableCell>
-              <div style={{backgroundColor: `#${item.color_value}`, height:'40px', width: '20px' }}></div>
-              {item.color_value}
+              <div style={{backgroundColor: `#${item.color_value}`, height:'30px', width: '40px' }}></div>
             </TableCell>
             <TableCell>                      
               <Button
+                variant="outlined"
+                color="secondary"
                 onClick={() => this.props.dispatch( {type: 'DELETE_NEEDED_STRING', 
                   payload: {thread_needed_id: item.id}} )}
                 >Delete
@@ -199,12 +196,12 @@ class AddProject extends Component {
           <TableRow>
             <TableCell>
               <Autocomplete
-                id="color-combo-box"
+                id="color selection"
                 options={this.props.reduxStore.possibleStrings}
                 defaultOption={this.props.reduxStore.possibleStrings[0]}
                 value={this.state.color}
                 getOptionLabel={(option) => option.number }
-                style={{ width: 300 }}
+                style={{ width: 120 }}
                 onChange={(event, value) => this.setState({
                   color: value
                 })}
@@ -220,19 +217,21 @@ class AddProject extends Component {
                 displayEmpty
                 className={classes.selectEmpty}
               >
+                <MenuItem value={0.500}>0.5</MenuItem>
                 <MenuItem value={1.000}>1</MenuItem>
                 <MenuItem value={1.500}>1.5</MenuItem>
                 <MenuItem value={2.000}>2</MenuItem>
                 <MenuItem value={2.500}>2.5</MenuItem>
                 <MenuItem value={3.000}>3</MenuItem>
                 <MenuItem value={3.500}>3.5</MenuItem>
+                <MenuItem value={4.000}>4</MenuItem>
               </Select>
               <FormHelperText>Amount</FormHelperText>
             </TableCell>
             <TableCell>
-              add color button
               <Button
                 variant="contained"
+                color='secondary'
                 onClick={this.addColor}
               >
                 Add Color
@@ -246,19 +245,20 @@ class AddProject extends Component {
             <TableCell>
               <Button 
                 variant="contained" 
+                color='secondary'
                 onClick={() =>    
                   {this.props.dispatch( 
                     {type: 'SAVE_PROJECT',
                     payload: {project_id: this.props.reduxStore.thisProject.id}});
                     this.props.history.push('/projectslist');}}>
-                Save This Project!!!(so you can make a new one)
+                Save This Project!
               </Button>
             </TableCell>
           </TableRow>
         </TableBody>
       </Table>
     </div>
-    <Button variant="contained" onClick={() => 
+    <Button variant="contained" color="primary" onClick={() => 
       this.props.history.push('/projectslist')}>
         Back to Projects List
     </Button>

@@ -16,7 +16,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         SELECT "color_id", SUM("amount_available") AS "total_available" FROM "thread_available" 
         JOIN "project" 
         ON "thread_available"."project_id" = "project"."id" 
-        WHERE "user_id" = $1 
+        WHERE "user_id" = $2 
         GROUP BY "color_id"
     ) AS "a"
     ON "thread_needed"."color_id" = "a"."color_id" 

@@ -18,13 +18,28 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {  
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
-
+  let user_id = '';
+  let project_id = '';
   const queryText = 'INSERT INTO "user" (username, password) VALUES ($1, $2) RETURNING id';
   pool.query(queryText, [username, password])
     .then((response) => {
       //TODO another SQL query to make the general storage project...
-      //pool.query().then().catch();
-      res.send({id: response.rows[0].id});})
+      const sqlText = `INSERT INTO "project" ("user_id", "being_created") VALUES ($1, FALSE) RETURNING "user_id", "id";`;
+      pool.query(sqlText, [response.rows[0].id]).then((newResponse) => {
+        user_id = newResponse.rows[0].user_id;
+        project_id = newResponse.rows[0].id;
+        console.log('user id', user_id, 'project_id', project_id);
+        let sqlText3 = `INSERT INTO "project_details" 
+        ("id", "project_name", "start_date") 
+        VALUES ( $1, 'General Storage', NOW()) RETURNING "id";`;
+        pool.query(sqlText3, [project_id])
+        .then((response) => {
+          console.log(response.rows[0].id); //this is still the project id so we don't really need it.
+          // this is where I'd have to do one more super huge tricky sql query to insert a bunch of rows into the 
+          // needed strings table. but i don't know how to do it TODO. If I ever figure it out...
+        });
+      });
+      res.send({id: user_id});})
     .catch(() => res.sendStatus(500));
 });
 

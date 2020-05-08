@@ -8,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 
 const styles = theme => ({
@@ -38,7 +40,13 @@ class ProjectsList extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <h1>Projects List</h1>
+              <Typography>
+              <Box m={1} ml={3}>
+              <h1>Projects List</h1>
+              </Box>
+              </Typography>
+
+
 
 
     
@@ -74,6 +82,7 @@ class ProjectsList extends Component {
                 </TableRow>
               </TableBody>
       </Table>
+      <Box m={1}>
       <Button
         color='primary'
         variant='contained'
@@ -81,6 +90,8 @@ class ProjectsList extends Component {
       >
         Home
       </Button>
+      </Box>
+
             </div>
         );
     }

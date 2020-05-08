@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 
 const styles = theme => ({
@@ -30,18 +31,26 @@ class ThreadList extends Component {
 
   render() {
     const {classes} = this.props;
+    const homeButton = (            
+    <Button
+      color='primary'
+      variant='contained'
+      onClick={() => this.props.history.push('/home')}
+    >
+      Home
+    </Button>)
     return (
       <div>
-          <h1>Threads List!</h1>
+        <Typography>
 
 
-            <Button
-                color='primary'
-                variant='contained'
-                onClick={() => this.props.history.push('/home')}
-                >
-                Home
-            </Button>
+          <Box m={1} ml={3}>
+              <h1>Threads List!</h1>
+              </Box>
+              <Box m={1}>
+                {homeButton}
+              </Box>
+
 
 
         <Table className={classes.table} size='small' aria-label='a table of all the threads'>
@@ -91,13 +100,10 @@ class ThreadList extends Component {
 
           </TableBody>
         </Table>
-        <Button
-        color='primary'
-        variant='contained'
-        onClick={() => this.props.history.push('/home')}
-      >
-        Home
-      </Button>
+        <Box m={1}>
+          {homeButton}
+        </Box>
+        </Typography>
       </div>
     );
   }

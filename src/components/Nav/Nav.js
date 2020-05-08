@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { withStyles } from '@material-ui/core/styles';
-import './Nav.css';
+//import './Nav.css';
 
 const styles = theme => ({
   root: {
@@ -28,6 +28,9 @@ const styles = theme => ({
     fontStyle: 'bold',
     padding: theme.spacing(1),
   
+  },
+  navRight: {
+    float: 'right',
   },
   navLink: {
 
@@ -61,7 +64,7 @@ function Nav(props) {
     <Link to="/home">
       <h2 className={classes.navTitle}>Cross Stitch Buddy</h2>
     </Link>
-    <div className="nav-right">
+    <div className={classes.navRight}>
       <Link className={classes.navLink} to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
@@ -77,9 +80,7 @@ function Nav(props) {
           <Link className={classes.navLink} to="/projectslist">
             Projects List
           </Link>
-          <Link className={classes.navLink} to="/project">
-            Project
-          </Link>
+
           <Link className={classes.navLink} to="/addproject">
             Add Project
           </Link>

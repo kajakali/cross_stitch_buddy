@@ -10,6 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 
 const styles = theme => ({
@@ -50,11 +52,22 @@ class ProjectsList extends Component {
 
 
   render() {
+    let backToProjectList = (          
+    <Button 
+      variant="contained" 
+      color='primary'
+      onClick={() => this.props.history.push('/projectslist')}>
+        Back to Projects List
+    </Button>);
     const {classes} = this.props;
     return (
       <div>
-          <h1>{this.props.reduxStore.thisProject.project_name}</h1>
-          {this.props.reduxStore.thisProject.project_image?
+          <Typography component='div'>
+            <Box m={1} ml={3}>
+            <h1>{this.props.reduxStore.thisProject.project_name}</h1>
+            </Box>
+            <Box m={3} ml={5}>
+            {this.props.reduxStore.thisProject.project_image?
             <img 
               src={this.props.reduxStore.thisProject.project_image} 
               alt={this.props.reduxStore.thisProject.project_name}
@@ -76,14 +89,19 @@ class ProjectsList extends Component {
               </Button>
             </>
           }
+            </Box>
+ {/*            <Box m={1}>
+              <h4>Start Date: {this.props.reduxStore.thisProject.start_date}</h4>
+            </Box> */}
+            <Box m={1}>
+              {backToProjectList}
+            </Box>
+          </Typography>
 
-          <h4>Start Date: {this.props.reduxStore.thisProject.start_date}</h4>
-          <Button 
-          variant="contained" 
-          color='primary'
-          onClick={() => this.props.history.push('/projectslist')}>
-            Back to Projects List
-        </Button>
+
+
+
+
 
         
         <Table className={classes.table} size='small' aria-label='a table of threads associated with this project'>
@@ -151,12 +169,9 @@ class ProjectsList extends Component {
             </TableRow>
           </TableBody>
         </Table>
-        <Button 
-          variant="contained" 
-          color='primary'
-          onClick={() => this.props.history.push('/projectslist')}>
-            Back to Projects List
-        </Button>
+        <Box m={1}>
+              {backToProjectList}
+            </Box>
       </div>
     );
   }

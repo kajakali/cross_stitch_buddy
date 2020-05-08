@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,8 +8,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import EditStringDialog from '../EditStringDialog/EditStringDialog';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 
 const styles = theme => ({
@@ -41,7 +41,12 @@ class ViewColor extends Component {
     const {classes} = this.props;
     return (
       <div>
-        <h1>View Color</h1>
+          <Typography>
+              <Box m={1} ml={3}>
+              <h1>View Color</h1>
+              </Box>
+ 
+
 {/*         {JSON.stringify(this.props.match.params)}
         {JSON.stringify(this.props.reduxStore.thisColor)}
         {JSON.stringify(this.state)}
@@ -77,6 +82,7 @@ class ViewColor extends Component {
     </TableHead>
     <TableBody>
         <TableRow>
+            <Box ml={3}>
             <Button
             className={classes.addSkein}
             color='secondary'
@@ -84,6 +90,8 @@ class ViewColor extends Component {
             onClick={() => this.props.dispatch( {type: 'ADD_AVAILABLE_STRING_TO_PROJECT', payload: this.props.match.params} )}>
                 Add a skein of this color string to this project
             </Button>
+            </Box>
+
         </TableRow>
         {this.props.reduxStore.thisColor.map( item => (
             <TableRow key={item.thread_available_id}>
@@ -138,13 +146,16 @@ class ViewColor extends Component {
         ))}
     </TableBody>
 </Table>
-
+        <Box ml={3}>
         <Button 
           variant="contained" 
           color='primary'
           onClick={() => this.props.history.push(`/project/${this.props.match.params.project_id}`)}>
             Back to Project
         </Button>
+        </Box>
+
+        </Typography>
       </div>
     );
   }

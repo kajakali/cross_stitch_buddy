@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 
 const styles = theme => ({
@@ -38,10 +39,18 @@ class UserPage extends Component {
     const {classes} = this.props;
     return (
       <div>
-      <h1 id="welcome">
+        <Typography>
+          <Box m={1} ml={3}>
+          <h1 id="welcome">
         Welcome, { this.props.reduxStore.user.username }!
       </h1>
-      <p>Your ID is: { this.props.reduxStore.user.id }</p>
+          </Box>
+          <Box m={1}>
+          <p>Your ID is: { this.props.reduxStore.user.id }</p>
+          </Box>
+        </Typography>
+
+
 {/*       <div classes={{root: classes.root}}>
         <img className={`${classes.image} ${classes.root}`} 
           src='http://www.artecyshop.com/images/medium/dolphinsatdawn_MED.jpg' 
@@ -58,7 +67,6 @@ class UserPage extends Component {
         :
       <span/>
       ))}
-      {/**just here is where i could stick in an image? */}
       <Button
         classes={{root: classes.root}}
         onClick={() => this.props.history.push('/projectslist')}

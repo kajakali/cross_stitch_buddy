@@ -15,32 +15,45 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {  
+router.post('/register', async (req, res, next) => {  
+  const client = await pool.connect();
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   let user_id = '';
   let project_id = '';
-  const queryText = 'INSERT INTO "user" (username, password) VALUES ($1, $2) RETURNING id';
-  pool.query(queryText, [username, password])
-    .then((response) => {
-      //TODO another SQL query to make the general storage project...
-      const sqlText = `INSERT INTO "project" ("user_id", "being_created") VALUES ($1, FALSE) RETURNING "user_id", "id";`;
-      pool.query(sqlText, [response.rows[0].id]).then((newResponse) => {
-        user_id = newResponse.rows[0].user_id;
-        project_id = newResponse.rows[0].id;
-        console.log('user id', user_id, 'project_id', project_id);
-        let sqlText3 = `INSERT INTO "project_details" 
-        ("id", "project_name", "start_date") 
-        VALUES ( $1, 'General Storage', NOW()) RETURNING "id";`;
-        pool.query(sqlText3, [project_id])
-        .then((response) => {
-          console.log(response.rows[0].id); //this is still the project id so we don't really need it.
-          // this is where I'd have to do one more super huge tricky sql query to insert a bunch of rows into the 
-          // needed strings table. but i don't know how to do it TODO. If I ever figure it out...
-        });
-      });
-      res.send({id: user_id});})
-    .catch(() => res.sendStatus(500));
+  const addUserText = `INSERT INTO "user" (username, password) 
+  VALUES ($1, $2) RETURNING id`;
+  try {
+    await client.query('BEGIN')
+    const response1 = await client.query(addUserText, [username, password]);
+    const addProjectText = `INSERT INTO "project" ("user_id", "being_created") 
+    VALUES ($1, FALSE) RETURNING "user_id", "id";`; 
+    const response = await client.query(addProjectText, [response1.rows[0].id]);
+    user_id = response.rows[0].user_id;
+    project_id = response.rows[0].id;
+    const addDetailsText = `INSERT INTO "project_details" 
+    ("id", "project_name", "start_date") 
+    VALUES ( $1, 'General Storage', NOW()) RETURNING "id";`;
+    await client.query(addDetailsText, [project_id]); //this names the project and gives it a start date
+    const getPossibleColorsText = `SELECT "id" FROM "possible_thread" ORDER BY "id";`;
+    const { rows } = await client.query(getPossibleColorsText);
+    const addColorNeededText = `INSERT INTO "thread_needed" 
+    ( "project_id", "color_id") VALUES 
+    ( $1, $2);`;
+    for (i=0; i<rows.length; i ++) {
+      await client.query(addColorNeededText, [project_id, rows[i].id]);
+    }
+    await client.query('COMMIT');
+    await res.send({id: user_id});
+  }
+  catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  }
+  finally {
+    client.release();
+  }
+  
 });
 
 

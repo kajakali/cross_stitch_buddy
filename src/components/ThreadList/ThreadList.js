@@ -83,7 +83,7 @@ class ThreadList extends Component {
                             {item.color_name}
                         </TableCell>
                         <TableCell>
-                            {item.needed}
+                            {item.needed !=0.000 && item.needed}
                         </TableCell>
                         <TableCell>
                             {item.available}

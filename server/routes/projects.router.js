@@ -8,7 +8,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.user);
     let sqlText = `SELECT * FROM "project" 
     JOIN "project_details" ON "project_details"."id" = "project"."id" 
-    WHERE "user_id" = $1 AND "being_created" = FALSE;`;
+    WHERE "user_id" = $1 AND "being_created" = FALSE;`; //TODO also don't show the General storage project = WHERE project_name is NOT General Storage
     pool.query(sqlText, [req.user.id]).then( response => {
         res.send(response.rows);
     }).catch( error => {
@@ -51,8 +51,29 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
  * POST route template
  */
 
+ 
+router.post('/add', rejectUnauthenticated, async (req, res) => {
+    const client = await pool.connect()
+    try {
+        await client.query('BEGIN')
+        const { id } = req.user
+        const newProjectText = `INSERT INTO "project" ("user_id") VALUES ($1) RETURNING "id";`;
+        const { rows } = await client.query(newProjectText, [id]);
+        const newDetailsText = `INSERT INTO "project_details" ("id") VALUES ($1) RETURNING "id";`;
+        await client.query(newDetailsText, [rows[0].id]);
+        await client.query('COMMIT');
+    }
+    catch (error) {
+        await client.query('ROLLBACK')
+        throw error
+    }
+    finally {
+        client.release()
+    }
+})
 
-router.post('/add', rejectUnauthenticated, (req, res) =>{
+
+/* router.post('/add', rejectUnauthenticated, (req, res) =>{
     let sqlText = `INSERT INTO "project" ("user_id") VALUES ($1) RETURNING "id";`;
     pool.query(sqlText, [req.user.id]).then( response => {
         let newSqlText = `INSERT INTO "project_details" 
@@ -70,7 +91,7 @@ router.post('/add', rejectUnauthenticated, (req, res) =>{
         console.log('error in creating a new blank project', error);
         res.sendStatus(500);
     });
-});
+}); */
 
 //PUT to mark a project that was being created as a normal project that is no longer going to show up
 //when the user goes to the add project page

@@ -45,9 +45,9 @@ class UserPage extends Component {
         Welcome, { this.props.reduxStore.user.username }!
       </h1>
           </Box>
-          <Box m={1}>
+{/*           <Box m={1}>
           <p>Your ID is: { this.props.reduxStore.user.id }</p>
-          </Box>
+          </Box> */}
         </Typography>
 
 

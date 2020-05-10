@@ -48,6 +48,8 @@ class EditStringDialog extends React.Component {
             project_id: this.props.project_id,
             color_id:this.props.color_id
         }});
+        //TODO maybe make it so this dialog can also make an instance of available string, when handed a project Id
+        //and a color id...
     }
  
   };

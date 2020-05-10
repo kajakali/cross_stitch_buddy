@@ -27,6 +27,8 @@ class ThreadList extends Component {
 
   componentDidMount() {
     this.props.dispatch( {type: 'FETCH_ALL_THREADS'} );
+    // TODO on load of page, find out the id of the General Storage project? so that it can be used when
+    // adding new threads on this page?
   }
 
   render() {
@@ -88,10 +90,13 @@ class ThreadList extends Component {
                         <TableCell>
                             {item.available}
                         </TableCell>
-                        <TableCell>
                         <TableCell style={{color: 'red'}}>
                             {(item.needed - item.available) > 0 && item.needed - item.available}
                             </TableCell>
+                            <TableCell>
+                              {/*this could probably be the confirmation dialog, 
+                              handed the gemeral storage id and the color id...*/}
+                              <Button>Add or edit a skein</Button>
                         </TableCell>
                     </TableRow>
                 )

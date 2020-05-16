@@ -102,7 +102,6 @@ class AddProject extends Component {
     return (
       <div>
         <h1>Add Project Page!!!</h1>
-        {JSON.stringify(this.props.reduxStore.thisProject)}
       <div>
       <Table className={classes.table} size='small' aria-label='a table of strings being added to this project'>
         <TableHead>

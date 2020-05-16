@@ -96,7 +96,7 @@ class ThreadList extends Component {
                             <TableCell>
                               {/*this could probably be the confirmation dialog, 
                               handed the gemeral storage id and the color id...*/}
-                              <Button>Add or edit a skein</Button>
+           {/*                    <Button>Add or edit a skein</Button> */}
                         </TableCell>
                     </TableRow>
                 )

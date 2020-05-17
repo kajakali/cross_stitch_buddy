@@ -1,6 +1,6 @@
 
-# PROJECT NAME
-Cross Stitch Buddy
+# Cross Stitch Buddy
+
 
 ## Description
 

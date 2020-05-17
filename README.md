@@ -41,7 +41,6 @@ If your application has secret keys (for example --  Twilio), make sure you tell
 8. The `npm run client` command will open up a new browser tab for you!
 
 ## Usage
-How does someone use this application? Tell a user story here.
 
 1. Mia likes to cross stitch. She logs on to cross stitch buddy to keep track of her string
 2. On the home page, Mia can look at the threads she has or the projects she has
@@ -52,23 +51,14 @@ How does someone use this application? Tell a user story here.
 
 
 ## Built With
-Node.js
-Express
-React
-Redux - Sagas
-Material UI
+- Node.js
+- Express
+- React
+- Redux
+- Redux-Saga
+- Material UI
 
 
 ## Acknowledgement
 Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application, and thanks to Dijksra Cohort!
 
-
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
-
-
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2

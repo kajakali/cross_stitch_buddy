@@ -51,7 +51,7 @@ const styles = {
 
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+    this.props.dispatch({type: 'FETCH_USER'});
   }
 
   render() {

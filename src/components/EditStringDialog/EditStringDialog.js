@@ -15,11 +15,12 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-let amountArray = [0, .5, 1, 1.5, 2, 2.5];
+let amountArray = [0, 0.5, 1, 1.5, 2, 2.5];
 class EditStringDialog extends React.Component {
   state = {
     open: false,
     amount: 'not an amount',
+    location: this.props.project_id
   };
 
   handleClickOpen = () => {
@@ -63,7 +64,7 @@ class EditStringDialog extends React.Component {
     return (
       <div>
         <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>
-          Edit this string
+          Edit {this.props.attribute} of string
         </Button>
         <Dialog
           open={this.state.open}
@@ -74,12 +75,16 @@ class EditStringDialog extends React.Component {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="alert-dialog-slide-title">
-            {`The amount of string has changed!`} 
+            {`The ${this.props.attribute} of string has changed!`} 
             
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              How much string is there now?
+            {this.props.attribute === "amount" ?
+            
+              <>
+
+              "How much string is there now?"
               <TextField
                 id="new-amount"
                 select
@@ -100,8 +105,35 @@ class EditStringDialog extends React.Component {
                     </MenuItem>
                 ))} 
                 </TextField>
-                        
+                </>       
+                :
+                <>
+                "Where is the string now?"
+              <TextField
+                id="new-location"
+                select
+                label="location"
+                type="number"
+                InputLabelProps={{
+                     shrink: true,
+                }}
 
+                variant="outlined"
+                value={this.state.location}
+                onChange={this.handleChange('location')}
+                >
+
+                {this.props.reduxStore.projects.map(option => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.project_name}
+                    </MenuItem>
+                ))} 
+                </TextField>
+                </>        
+
+
+
+                }
 
 
 

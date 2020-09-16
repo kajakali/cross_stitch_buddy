@@ -64,7 +64,7 @@ router.post('/add', rejectUnauthenticated, async (req, res) => {
         await client.query('COMMIT');
     }
     catch (error) {
-        await client.query('ROLLBACK')
+        await client.query('ROLLBACK');
         throw error
     }
     finally {

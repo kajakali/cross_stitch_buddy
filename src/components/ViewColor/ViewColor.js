@@ -76,7 +76,7 @@ class ViewColor extends Component {
                 Edit Amount
             </TableCell>
             <TableCell>
-                Submit
+                Move to
             </TableCell>
         </TableRow>
     </TableHead>
@@ -116,22 +116,13 @@ class ViewColor extends Component {
                 </TableCell>
                 {/*only allow editing of threads that are located here */}
                 <TableCell>
- {/*                    {(item.project_id === item.thread_available_location) &&
-                        <TextField 
-                        label="amount available" 
-                        type="number"
-                        value={this.state.amount} 
-                        onChange={(event, value) => (this.setState({
-                            thread_available_id: item.thread_available_id,
-                            amount: event.target.value}))}
-                    />} */}
-                </TableCell>
-                <TableCell>
                     {(Number(this.props.match.params.project_id) === Number(item.thread_available_location)) ?
                     <EditStringDialog    
                     color_id={this.props.match.params.color_id}                 
                     project_id={item.project_id}
-                    thread_available_id={item.thread_available_id}/>
+                    thread_available_id={item.thread_available_id}
+                    attribute="amount"
+                    />
                     :
                     <Button
                         variant='outlined'
@@ -141,6 +132,17 @@ class ViewColor extends Component {
                     </Button>
                     }
                     {/* TODO maybe instead here we could have a button to transfer a piece of string to this project */}
+                </TableCell>
+                <TableCell>
+ {/*                    {(item.project_id === item.thread_available_location) &&
+                        <TextField 
+                        label="amount available" 
+                        type="number"
+                        value={this.state.amount} 
+                        onChange={(event, value) => (this.setState({
+                            thread_available_id: item.thread_available_id,
+                            amount: event.target.value}))}
+                    />} */}
                 </TableCell>
             </TableRow>
         ))}

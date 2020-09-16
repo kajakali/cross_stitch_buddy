@@ -7,7 +7,7 @@ import stringsNeeded from './stringsNeededReducer';
 import thisProject from './thisProjectReducer';
 import possibleStrings from './possibleStringsReducer';
 import thisColor from './thisColorReducer';
-import entireThreadList from './entireThreadListReducer'
+import entireThreadList from './entireThreadListReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.

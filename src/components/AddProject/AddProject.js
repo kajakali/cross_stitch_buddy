@@ -53,7 +53,7 @@ class AddProject extends Component {
     }
 
   submitProjectName = () => {
-      console.log('the name to submit is: ', this.state.projectName);
+      console.log('the name to submit is: ', this.state.projectName, 'the id is: ', this.props.reduxStore.thisProject.id);
       this.props.dispatch( {type: 'CHANGE_PROJECT_NAME', payload: {
         project_id: this.props.reduxStore.thisProject.id,
         project_name: this.state.projectName
